@@ -1,7 +1,7 @@
 
 # Política de Privacidade da DD Tecnologia
 
-_Última Atualização: 30 de novembro de 2020_
+_Última Atualização: 01 de dezembro de 2020_
 
 ## 1. Introdução e quem somos
 
@@ -39,7 +39,7 @@ A DD Tecnologia compartilha seus dados pessoais com a Amazon Web Services, Inc.,
 
 A DD Tecnologia armazena suas informações pessoais nos Estados Unidos da América. A DD Tecnologia se empenhará para garantir que os dados sejam sempre tratados de acordo com esta política de privacidade e com as leis locais.
 
-Para os residentes da Área Econômica Européia: todos os provedores de dados da DD Tecnologia são compatíveis com o Escudo de Privacidade UE-EUA e, portanto, garantem que os dados dos clientes tenham os mesmos altos níveis de segurança, privacidade e proteção de dados que receberiam na UE.
+Para os residentes da Área Econômica Europeia: todos os provedores de dados da DD Tecnologia são compatíveis com o Escudo de Privacidade UE-EUA e, portanto, garantem que os dados dos clientes tenham os mesmos altos níveis de segurança, privacidade e proteção de dados que receberiam na UE.
 
 ## 6. Como a DD Tecnologia protege seus dados pessoais
 
@@ -65,7 +65,7 @@ A DD Tecnologia não possui nenhum acesso aos seus dados pessoais, exceto a geol
 
 Seus dados de geolocalização são atualizados automaticamente pelo seu dispositivo móvel ou fixo.
 
-Caso não queria fornecer os seus dados de geolocalização, basta apenas desativar a função GPS do seu dispositivo móvel ou fixo. Note que as funcionalidades principais da habilidade Ônibus BH terão o seu funcionamento interropido, pois não será mais possível identificar automaticamente a sua localização atual.
+Caso não queria fornecer os seus dados de geolocalização, basta apenas desativar a função GPS do seu dispositivo móvel ou fixo. Note que as funcionalidades principais da habilidade Ônibus BH terão o seu funcionamento interrompido, pois não será mais possível identificar automaticamente a sua localização atual.
 
 ## 9. Uso de tomada de decisão e perfis automatizados
 
@@ -77,7 +77,7 @@ A DD Tecnologia não usa essas tecnologias.
 
 ## 11. Links de terceiros
 
-Os serviços da DD Tecnologia podem incluir hiperlinks para outros sites, conteúdo ou recursos. A DD Tecnologia não tem controle ou responsabilidade sobre o conteúdo ou informação nesses sites.
+Os serviços da DD Tecnologia podem incluir hyperlinks para outros sites, conteúdo ou recursos. A DD Tecnologia não tem controle ou responsabilidade sobre o conteúdo ou informação nesses sites.
 
 ## 12. Dados para contato
 

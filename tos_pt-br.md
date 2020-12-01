@@ -1,7 +1,7 @@
 
 # Termos de Serviço da DD Tecnologia
 
-_Última Atualização: 30 de novembro de 2020_
+_Última Atualização: 01 de dezembro de 2020_
 
 ## 1. Seu relacionamento com a DD Tecnologia
 
@@ -39,7 +39,7 @@ _Última Atualização: 30 de novembro de 2020_
 
 ## 4. Uso dos Serviços por você
 
-**4.1** Para acessar certos Serviços, pode ser solicitado que você forneça informações pessoais (como identificação ou dados de contato) como parte do processo de cadastro para o Serviço ou como parte de seu uso continuado dos Serviços. Você concorda que qualquer informação de cadastro fornecida à DD Tecnologia será sempre precisa, correta e atualizada. Essas informações pessoais serão usadas pela DD Tecnologia apenas para prestar os Serviços, análise de desempenho de negócios, análise de perfis de consumidores ou para fins de marketing e pesquisa; a DD Tecnologia pode compartilhá-las com terceiros, ou seja, parceiros com os quais a DD Tecnologia tem uma relação comercial, mas apenas para os fins mencionados. As informações coletadas sobre você também podem ser usadas para oferecer recomendações personalizadas.
+**4.1** Para acessar certos Serviços, pode ser solicitado que você forneça informações pessoais (como identificação ou dados de contato) como parte do processo de cadastro para o Serviço ou como parte de seu uso continuado dos Serviços. Você concorda que qualquer informação de cadastro fornecida a DD Tecnologia será sempre precisa, correta e atualizada. Essas informações pessoais serão usadas pela DD Tecnologia apenas para prestar os Serviços, análise de desempenho de negócios, análise de perfis de consumidores ou para fins de marketing e pesquisa; a DD Tecnologia pode compartilhá-las com terceiros, ou seja, parceiros com os quais a DD Tecnologia tem uma relação comercial, mas apenas para os fins mencionados. As informações coletadas sobre você também podem ser usadas para oferecer recomendações personalizadas.
 
 **4.2** Você concorda em utilizar os Serviços apenas para os fins permitidos (a) pelos Termos e (b) por legislação, regulamento ou práticas ou diretrizes aplicáveis de aceitação geral nas jurisdições relevantes. Isso se aplica a qualquer informação que você possa enviar através do uso dos Serviços, incluindo, entre outros, avaliações ou classificações.
 
@@ -117,7 +117,7 @@ NENHUMA RECOMENDAÇÃO OU INFORMAÇÃO, ORAL OU ESCRITA, OBTIDA POR VOCÊ DA DD 
 
 **(III)** A EXCLUSÃO, CORRUPÇÃO OU FALHA DE ARMAZENAMENTO DE CONTEÚDO E OUTROS DADOS DE COMUNICAÇÃO MANTIDOS OU TRANSMITIDOS POR OU ATRAVÉS DO USO DOS SERVIÇOS;
 
-**(IV)** VOCÊ NÃO FORNECER À DD TECNOLOGIA INFORMAÇÕES DE CONTA PRECISAS;
+**(IV)** VOCÊ NÃO FORNECER A DD TECNOLOGIA INFORMAÇÕES DE CONTA PRECISAS;
 
 **(V)** VOCÊ NÃO MANTER SUA SENHA OU DADOS DA CONTA SEGUROS E EM SIGILO.
 
@@ -133,7 +133,7 @@ NENHUMA RECOMENDAÇÃO OU INFORMAÇÃO, ORAL OU ESCRITA, OBTIDA POR VOCÊ DA DD 
 
 ## 10. Outro conteúdo
 
-**10.1** Os Serviços podem incluir hiperlinks para outros sites, conteúdo ou recursos. A DD Tecnologia pode não ter controle sobre os sites ou recursos fornecidos por empresas ou pessoas que não sejam a DD Tecnologia.
+**10.1** Os Serviços podem incluir hyperlinks para outros sites, conteúdo ou recursos. A DD Tecnologia pode não ter controle sobre os sites ou recursos fornecidos por empresas ou pessoas que não sejam a DD Tecnologia.
 
 **10.2** Você reconhece e concorda que a DD Tecnologia não é responsável pela disponibilidade de tais sites ou recursos externos e não endossa publicidade, produtos ou outros materiais presentes ou disponíveis em tais sites ou recursos.
 
