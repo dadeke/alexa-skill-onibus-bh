@@ -1,0 +1,79 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "ônibus b. h.",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        },
+        {
+          "name": "SetBusLineIntent",
+          "slots": [
+            {
+              "name": "bus_line_string",
+              "type": "AMAZON.SearchQuery"
+            }
+          ],
+          "samples": [
+            "número {bus_line_string}",
+            "linha número {bus_line_string}",
+            "ônibus {bus_line_string}",
+            "linha {bus_line_string}"
+          ]
+        },
+        {
+          "name": "AMAZON.YesIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NoIntent",
+          "samples": []
+        },
+        {
+          "name": "RepeatIntentHandler",
+          "slots": [],
+          "samples": [
+            "fale novamente",
+            "fale denovo",
+            "repete por favor",
+            "repita",
+            "repete",
+            "repetir"
+          ]
+        },
+        {
+          "name": "SetOptionIntent",
+          "slots": [
+            {
+              "name": "option_number",
+              "type": "AMAZON.NUMBER"
+            }
+          ],
+          "samples": [
+            "{option_number}",
+            "opção {option_number}"
+          ]
+        }
+      ],
+      "types": []
+    }
+  },
+  "version": "9"
+}
