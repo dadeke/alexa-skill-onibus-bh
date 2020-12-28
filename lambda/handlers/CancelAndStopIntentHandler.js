@@ -1,6 +1,6 @@
 const Alexa = require('ask-sdk-core');
 const speaks = require('../speakStrings');
-const { setLastAccess } = require('../util');
+const Util = require('../util');
 
 const CancelAndStopIntentHandler = {
   canHandle(handlerInput) {
@@ -13,11 +13,13 @@ const CancelAndStopIntentHandler = {
     );
   },
   async handle(handlerInput) {
-    await setLastAccess(handlerInput);
+    await Util.setLastAccess(handlerInput);
+
+    const number = Util.getNumberRand(2);
 
     return handlerInput.responseBuilder
-      .speak(speaks.ALL_RIGHT)
-      .withStandardCard(speaks.SKILL_NAME, speaks.ALL_RIGHT)
+      .speak(speaks.ALL_RIGHT_BYE[number])
+      .withStandardCard(speaks.SKILL_NAME, speaks.ALL_RIGHT_BYE[number])
       .withShouldEndSession(true)
       .getResponse();
   },

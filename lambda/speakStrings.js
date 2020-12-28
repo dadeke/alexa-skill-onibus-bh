@@ -116,7 +116,11 @@ const speaks = {
   AND: ' e ',
   REPEATING: 'Repetindo. ',
   REPEAT_AGAIN: 'Gostaria que eu repetisse novamente?',
-  ALL_RIGHT: 'Tudo bem!',
+  ALL_RIGHT_BYE: [
+    'Tudo bem. Até mais!',
+    'Certo. Tchauzinho!',
+    'Ok. Até a próxima!',
+  ],
   NOT_UNDERSTAND: 'Desculpe, não consegui entender. Por favor, fale novamente.',
   PROBLEM:
     'Desculpe. Ocorreu um problema ao conectar-se ao serviço. ' +

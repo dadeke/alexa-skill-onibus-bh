@@ -2,6 +2,13 @@
  * Utilidades compartilhadas.
  * */
 
+/**
+ * Retorna um número randômico de 0 até o número máximo especificado.
+ */
+module.exports.getNumberRand = function getNumberRand(maxNumber) {
+  return Math.floor(Math.random() * (maxNumber + 1));
+};
+
 /* *
  * Adiciona um espaço em branco apenas nos números das linhas de ônibus
  * que possuem mais de 4 dígitos a fim de que a fala da Alexa

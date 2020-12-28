@@ -30,6 +30,12 @@ describe('Test Util', () => {
     handlerInput.requestEnvelope.context.System.person = undefined;
   });
 
+  it('should be able call getNumberRand with success', () => {
+    const number = Util.getNumberRand(2);
+
+    expect(number === 0 || number === 1 || number === 2).toBe(true);
+  });
+
   it('should be able call addSpaceBetweenFourDigits with success', () => {
     const responseA = Util.addSpaceBetweenFourDigits('1509');
     const responseB = Util.addSpaceBetweenFourDigits('5506A');

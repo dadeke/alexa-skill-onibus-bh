@@ -5,6 +5,7 @@ const OptionOne = require('../../lambda/responses/OptionOneResponse');
 const OptionTwo = require('../../lambda/responses/OptionTwoResponse');
 const BusLines = require('../../lambda/responses/BusLinesResponse');
 const speaks = require('../../lambda/speakStrings');
+const Util = require('../../lambda/util');
 
 describe('Sequence 07. Test scenario: YesNoIntent', () => {
   const getSessionAttributes = jest.fn();
@@ -14,12 +15,14 @@ describe('Sequence 07. Test scenario: YesNoIntent', () => {
   const mockOptionOneResponse = jest.fn();
   const mockOptionTwoResponse = jest.fn();
   const mockBusLineResponse = jest.fn();
+  const mockGetNumberRand = jest.fn();
   const mockConsoleError = jest.fn();
   // eslint-disable-next-line no-console
   console.error = mockConsoleError;
   OptionOne.getResponse = mockOptionOneResponse;
   OptionTwo.getResponse = mockOptionTwoResponse;
   BusLines.getResponse = mockBusLineResponse;
+  Util.getNumberRand = mockGetNumberRand;
 
   const handlerInput = {
     attributesManager: {
@@ -84,9 +87,11 @@ describe('Sequence 07. Test scenario: YesNoIntent', () => {
   it('should be able can return response all right when intent name is AMAZON.NoIntent', async () => {
     handlerInput.requestEnvelope.request.intent.name = 'AMAZON.NoIntent';
 
+    mockGetNumberRand.mockReturnValueOnce(2);
+
     const outputSpeech = testResponseBuilder
-      .speak(speaks.ALL_RIGHT)
-      .withStandardCard(speaks.SKILL_NAME, speaks.ALL_RIGHT)
+      .speak(speaks.ALL_RIGHT_BYE[2])
+      .withStandardCard(speaks.SKILL_NAME, speaks.ALL_RIGHT_BYE[2])
       .withShouldEndSession(true)
       .getResponse();
 
