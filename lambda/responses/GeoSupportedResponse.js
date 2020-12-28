@@ -117,6 +117,14 @@ const GeoSupported = {
             latitude: geoObject.coordinate.latitudeInDegrees,
             longitude: geoObject.coordinate.longitudeInDegrees,
           };
+          //
+          // For tests
+          //
+          // const GeoData = {
+          //   freshness: 4,
+          //   latitude: '-19.924097',
+          //   longitude: '-43.947789',
+          // };
 
           return GeoData;
         }
