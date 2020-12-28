@@ -53,6 +53,10 @@ const SetOptionIntentHandler = {
           optionNumber === '1' ? speaks.HELP_OPTION1 : speaks.HELP_OPTION2;
         speakOutput += speaks.CHOOSE_OPTION;
 
+        sessionAttributes.OptionOneResponseCache = undefined;
+        sessionAttributes.OptionTwoResponseCache = undefined;
+        sessionAttributes.BusLinesResponseCache = undefined;
+        sessionAttributes.BusLinesResponseCardCache = undefined;
         sessionAttributes.lastIntent = lastIntent;
         sessionAttributes.optionNumber = optionNumber;
         attributesManager.setSessionAttributes(sessionAttributes);
