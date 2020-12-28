@@ -18,9 +18,12 @@ const FallbackIntentHandler = {
   },
   handle(handlerInput) {
     return handlerInput.responseBuilder
-      .speak(speaks.NOT_UNDERSTAND)
-      .withStandardCard(speaks.SKILL_NAME, speaks.NOT_UNDERSTAND)
-      .reprompt(speaks.NOT_UNDERSTAND)
+      .speak(speaks.FALLBACK + speaks.OPTIONS)
+      .withStandardCard(
+        speaks.SKILL_NAME,
+        speaks.FALLBACK + speaks.OPTIONS_CARD,
+      )
+      .reprompt(speaks.OPTIONS)
       .getResponse();
   },
 };

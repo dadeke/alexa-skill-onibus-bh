@@ -121,7 +121,8 @@ const speaks = {
     'Certo. Tchauzinho!',
     'Ok. Até a próxima!',
   ],
-  NOT_UNDERSTAND: 'Desculpe, não consegui entender. Por favor, fale novamente.',
+  NOT_UNDERSTAND: 'Desculpe, não consegui entender. ',
+  FALLBACK: 'Desculpe, Ônibus BH ainda não pode fazer isso. ',
   PROBLEM:
     'Desculpe. Ocorreu um problema ao conectar-se ao serviço. ' +
     'Por favor, aguarde um momento e tente novamente mais tarde.',

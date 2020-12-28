@@ -83,9 +83,12 @@ describe('Sequence 05. Test scenario: SetOptionIntent', () => {
     getSessionAttributes.mockReturnValueOnce(null);
 
     const outputSpeech = testResponseBuilder
-      .speak(speaks.NOT_UNDERSTAND)
-      .withStandardCard(speaks.SKILL_NAME, speaks.NOT_UNDERSTAND)
-      .reprompt(speaks.NOT_UNDERSTAND)
+      .speak(speaks.NOT_UNDERSTAND + speaks.OPTIONS)
+      .withStandardCard(
+        speaks.SKILL_NAME,
+        speaks.NOT_UNDERSTAND + speaks.OPTIONS_CARD,
+      )
+      .reprompt(speaks.OPTIONS)
       .getResponse();
 
     const response = await SetOptionIntentHandler.handle(handlerInput);

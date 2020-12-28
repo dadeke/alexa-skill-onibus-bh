@@ -70,9 +70,12 @@ describe('Sequence 07. Test scenario: YesNoIntent', () => {
     getSessionAttributes.mockReturnValueOnce(null);
 
     const outputSpeech = testResponseBuilder
-      .speak(speaks.NOT_UNDERSTAND)
-      .withStandardCard(speaks.SKILL_NAME, speaks.NOT_UNDERSTAND)
-      .reprompt(speaks.NOT_UNDERSTAND)
+      .speak(speaks.NOT_UNDERSTAND + speaks.OPTIONS)
+      .withStandardCard(
+        speaks.SKILL_NAME,
+        speaks.NOT_UNDERSTAND + speaks.OPTIONS_CARD,
+      )
+      .reprompt(speaks.OPTIONS)
       .getResponse();
 
     const response = await YesNoIntentHandler.handle(handlerInput);
@@ -107,9 +110,12 @@ describe('Sequence 07. Test scenario: YesNoIntent', () => {
     });
 
     const outputSpeech = testResponseBuilder
-      .speak(speaks.NOT_UNDERSTAND)
-      .withStandardCard(speaks.SKILL_NAME, speaks.NOT_UNDERSTAND)
-      .reprompt(speaks.NOT_UNDERSTAND)
+      .speak(speaks.NOT_UNDERSTAND + speaks.OPTIONS)
+      .withStandardCard(
+        speaks.SKILL_NAME,
+        speaks.NOT_UNDERSTAND + speaks.OPTIONS_CARD,
+      )
+      .reprompt(speaks.OPTIONS)
       .getResponse();
 
     const response = await YesNoIntentHandler.handle(handlerInput);
