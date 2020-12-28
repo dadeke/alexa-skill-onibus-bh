@@ -47,7 +47,7 @@
           "samples": []
         },
         {
-          "name": "RepeatIntentHandler",
+          "name": "RepeatIntent",
           "slots": [],
           "samples": [
             "fale novamente",

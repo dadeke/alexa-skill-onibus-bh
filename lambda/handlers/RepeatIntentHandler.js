@@ -5,8 +5,7 @@ const RepeatIntentHandler = {
   canHandle(handlerInput) {
     return (
       Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' &&
-      Alexa.getIntentName(handlerInput.requestEnvelope) ===
-        'RepeatIntentHandler'
+      Alexa.getIntentName(handlerInput.requestEnvelope) === 'RepeatIntent'
     );
   },
   async handle(handlerInput) {

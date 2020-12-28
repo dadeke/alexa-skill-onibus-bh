@@ -14,7 +14,7 @@ describe('Sequence 02. Test scenario: RepeatIntent', () => {
       request: {
         type: 'IntentRequest',
         intent: {
-          name: 'RepeatIntentHandler',
+          name: 'RepeatIntent',
         },
       },
     },
@@ -23,7 +23,7 @@ describe('Sequence 02. Test scenario: RepeatIntent', () => {
   const testResponseBuilder = Alexa.ResponseFactory.init();
 
   beforeEach(() => {
-    handlerInput.requestEnvelope.request.intent.name = 'RepeatIntentHandler';
+    handlerInput.requestEnvelope.request.intent.name = 'RepeatIntent';
   });
 
   it('should be able can not handle RepeatIntent if intent name is diferent', () => {
