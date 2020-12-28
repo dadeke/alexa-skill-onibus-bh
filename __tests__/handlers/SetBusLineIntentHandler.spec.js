@@ -3,7 +3,7 @@ const Alexa = require('ask-sdk-core');
 const BusLine = require('../../lambda/responses/BusLineResponse');
 const SetBusLineIntentHandler = require('../../lambda/handlers/SetBusLineIntentHandler');
 
-describe('Sequence 04. Test scenario: SetBusLineIntent', () => {
+describe('Sequence 06. Test scenario: SetBusLineIntent', () => {
   const getResponse = jest.fn();
   BusLine.getResponse = getResponse;
 

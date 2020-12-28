@@ -6,7 +6,7 @@ const OptionTwo = require('../../lambda/responses/OptionTwoResponse');
 const BusLines = require('../../lambda/responses/BusLinesResponse');
 const speaks = require('../../lambda/speakStrings');
 
-describe('Sequence 05. Test scenario: YesNoIntent', () => {
+describe('Sequence 07. Test scenario: YesNoIntent', () => {
   const getSessionAttributes = jest.fn();
   const setSessionAttributes = jest.fn();
   const setPersistentAttributes = jest.fn();

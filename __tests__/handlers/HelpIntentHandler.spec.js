@@ -3,7 +3,7 @@ const Alexa = require('ask-sdk-core');
 const HelpIntentHandler = require('../../lambda/handlers/HelpIntentHandler');
 const speaks = require('../../lambda/speakStrings');
 
-describe('Sequence 06. Test scenario: HelpIntent', () => {
+describe('Sequence 08. Test scenario: HelpIntent', () => {
   const getSessionAttributes = jest.fn();
   const setSessionAttributes = jest.fn();
 

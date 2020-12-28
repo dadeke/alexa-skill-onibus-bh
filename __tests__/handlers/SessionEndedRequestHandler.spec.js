@@ -2,7 +2,7 @@ const Alexa = require('ask-sdk-core');
 
 const SessionEndedRequestHandler = require('../../lambda/handlers/SessionEndedRequestHandler');
 
-describe('Sequence 09. Test scenario: SessionEndedRequest', () => {
+describe('Sequence 11. Test scenario: SessionEndedRequest', () => {
   const handlerInput = {
     requestEnvelope: {
       request: {

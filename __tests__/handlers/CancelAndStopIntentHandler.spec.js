@@ -3,7 +3,7 @@ const Alexa = require('ask-sdk-core');
 const CancelAndStopIntentHandler = require('../../lambda/handlers/CancelAndStopIntentHandler');
 const speaks = require('../../lambda/speakStrings');
 
-describe('Sequence 07. Test scenario: AMAZON.CancelIntent and AMAZON.StopIntent', () => {
+describe('Sequence 09. Test scenario: AMAZON.CancelIntent and AMAZON.StopIntent', () => {
   const mockConsoleError = jest.fn();
   const getSessionAttributes = jest.fn();
   const setPersistentAttributes = jest.fn();

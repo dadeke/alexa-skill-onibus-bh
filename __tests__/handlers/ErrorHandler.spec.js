@@ -3,7 +3,7 @@ const Alexa = require('ask-sdk-core');
 const ErrorHandler = require('../../lambda/handlers/ErrorHandler');
 const speaks = require('../../lambda/speakStrings');
 
-describe('Sequence 10. Test: ErrorHandler', () => {
+describe('Sequence 12. Test: ErrorHandler', () => {
   const mockConsoleError = jest.fn();
   // eslint-disable-next-line no-console
   console.error = mockConsoleError;
