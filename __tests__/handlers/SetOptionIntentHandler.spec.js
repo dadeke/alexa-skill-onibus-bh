@@ -59,7 +59,7 @@ describe('Sequence 05. Test scenario: SetOptionIntent', () => {
     expect(SetOptionIntentHandler.canHandle(handlerInput)).toEqual(true);
   });
 
-  it('should be able can return with response problem when an exception happens', async () => {
+  it('should be able can return with response I have a problem when an exception happens', async () => {
     handlerInput.requestEnvelope.request.intent.slots = {
       option_number: {
         value: '1',
@@ -71,8 +71,15 @@ describe('Sequence 05. Test scenario: SetOptionIntent', () => {
       throw new Error('InternalError'); // Simula um erro genérico.
     });
 
-    await SetOptionIntentHandler.handle(handlerInput);
+    const outputSpeech = testResponseBuilder
+      .speak(speaks.PROBLEM)
+      .withStandardCard(speaks.SKILL_NAME, speaks.PROBLEM)
+      .withShouldEndSession(true)
+      .getResponse();
 
+    const response = await SetOptionIntentHandler.handle(handlerInput);
+
+    expect(response).toEqual(outputSpeech);
     expect(mockConsoleError).toHaveBeenCalledWith(
       'Error:',
       'SetOptionIntentHandler - Error: InternalError',
@@ -96,7 +103,7 @@ describe('Sequence 05. Test scenario: SetOptionIntent', () => {
     expect(response).toEqual(outputSpeech);
     expect(mockConsoleError).toHaveBeenCalledWith(
       'Error:',
-      'SetOptionIntentHandler - optionNumber not found',
+      'SetOptionIntentHandler - codBusStop and especificBusLine and optionNumber not found',
     );
   });
 
@@ -203,6 +210,34 @@ describe('Sequence 05. Test scenario: SetOptionIntent', () => {
     expect(mockConsoleError).not.toHaveBeenCalled();
   });
 
+  it('should be not able can return response of the predicion for bus line stop', async () => {
+    handlerInput.requestEnvelope.request.intent.slots = {
+      option_number: {
+        value: '15 09',
+      },
+    };
+
+    const mockGetResponse = testResponseBuilder
+      .speak(speaks.NOT_UNDERSTAND + speaks.OPTIONS)
+      .withStandardCard(
+        speaks.SKILL_NAME,
+        speaks.NOT_UNDERSTAND + speaks.OPTIONS_CARD,
+      )
+      .reprompt(speaks.OPTIONS)
+      .getResponse();
+
+    getSessionAttributes.mockReturnValueOnce({});
+    mockBusLineResponse.mockReturnValueOnce(mockGetResponse);
+
+    const response = await SetOptionIntentHandler.handle(handlerInput);
+
+    expect(response).toEqual(mockGetResponse);
+    expect(mockConsoleError).toHaveBeenCalledWith(
+      'Error:',
+      'SetOptionIntentHandler - codBusStop and especificBusLine and optionNumber not found',
+    );
+  });
+
   it('should be able can return response of the predicion for bus line stop', async () => {
     handlerInput.requestEnvelope.request.intent.slots = {
       option_number: {
@@ -226,7 +261,10 @@ describe('Sequence 05. Test scenario: SetOptionIntent', () => {
       .reprompt(speaks.REPEAT_AGAIN)
       .getResponse();
 
-    getSessionAttributes.mockReturnValueOnce({});
+    getSessionAttributes.mockReturnValueOnce({
+      codBusStop: '8711',
+      especificBusLine: true,
+    });
     mockBusLineResponse.mockReturnValueOnce(mockGetResponse);
 
     const response = await SetOptionIntentHandler.handle(handlerInput);

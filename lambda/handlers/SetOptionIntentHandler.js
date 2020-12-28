@@ -1,10 +1,10 @@
 const Alexa = require('ask-sdk-core');
-const speaks = require('../speakStrings');
-const { setLastAccess } = require('../util');
 
 const OptionOne = require('../responses/OptionOneResponse');
 const OptionTwo = require('../responses/OptionTwoResponse');
 const BusLine = require('../responses/BusLineResponse');
+const speaks = require('../speakStrings');
+const { setLastAccess } = require('../util');
 
 const SetOptionIntentHandler = {
   canHandle(handlerInput) {
@@ -30,6 +30,20 @@ const SetOptionIntentHandler = {
         : false;
       // console.log('lastIntent:', lastIntent);
       // console.log('optionNumber:', optionNumber);
+
+      const codBusStop = Object.prototype.hasOwnProperty.call(
+        sessionAttributes,
+        'codBusStop',
+      )
+        ? sessionAttributes.codBusStop
+        : false;
+
+      const especificBusLine = Object.prototype.hasOwnProperty.call(
+        sessionAttributes,
+        'especificBusLine',
+      )
+        ? sessionAttributes.especificBusLine
+        : false;
 
       if (
         lastIntent === 'AMAZON.HelpIntent' &&
@@ -61,7 +75,7 @@ const SetOptionIntentHandler = {
       }
 
       // Em último caso, pode ser número de linha de ônibus.
-      if (optionNumber) {
+      if (codBusStop !== false && especificBusLine !== false && optionNumber) {
         const slots = {
           bus_line_string: {
             value: optionNumber,
@@ -78,7 +92,8 @@ const SetOptionIntentHandler = {
       // eslint-disable-next-line no-console
       console.error(
         'Error:',
-        'SetOptionIntentHandler - optionNumber not found',
+        'SetOptionIntentHandler - ' +
+          'codBusStop and especificBusLine and optionNumber not found',
       );
 
       return handlerInput.responseBuilder
