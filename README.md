@@ -48,7 +48,7 @@ https://prefeitura.pbh.gov.br/bhtrans/informacoes/dados/dados-abertos
 
 ## Diagrama conversacional ##
 (Clique na imagem para acessar o diagrama.)
-[<p align="center">![Diagrama conversacional](https://i.imgur.com/XFiT9UF.png)</p>](https://whimsical.com/onibus-bh-v0-0-3-SQaY6eQrdkX4TG8V5G759P)
+[<p align="center">![Diagrama conversacional](https://i.imgur.com/XFiT9UF.png)</p>](https://whimsical.com/onibus-bh-SQaY6eQrdkX4TG8V5G759P)
 
 ## Changelog ##
 
