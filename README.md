@@ -52,6 +52,11 @@ https://prefeitura.pbh.gov.br/bhtrans/informacoes/dados/dados-abertos
 
 ## Changelog ##
 
+### 0.0.4 - 23/12/2020 ###
+- Adicionado aviso com relação as estações do MOVE.
+- Correção de respostas irrelevantes.
+- Adicionados textos de fala aleatórios ao dar tchau.
+
 ### 0.0.3 - 16/12/2020 ###
 - Publicado a primeira versão experimental.
 
