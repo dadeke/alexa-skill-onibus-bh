@@ -4,6 +4,8 @@ const DDBAdapter = require('ask-sdk-dynamodb-persistence-adapter');
 
 const LaunchRequestHandler = require('./handlers/LaunchRequestHandler');
 const SetOptionIntentHandler = require('./handlers/SetOptionIntentHandler');
+const SetOptionOneIntentHandler = require('./handlers/SetOptionOneIntentHandler');
+const SetOptionTwoIntentHandler = require('./handlers/SetOptionTwoIntentHandler');
 const SetBusLineIntentHandler = require('./handlers/SetBusLineIntentHandler');
 const RepeatIntentHandler = require('./handlers/RepeatIntentHandler');
 const YesNoIntentHandler = require('./handlers/YesNoIntentHandler');
@@ -37,6 +39,8 @@ exports.handler = Alexa.SkillBuilders.custom()
   .addRequestHandlers(
     LaunchRequestHandler,
     RepeatIntentHandler,
+    SetOptionOneIntentHandler,
+    SetOptionTwoIntentHandler,
     SetOptionIntentHandler,
     SetBusLineIntentHandler,
     YesNoIntentHandler,

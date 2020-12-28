@@ -67,8 +67,31 @@
             }
           ],
           "samples": [
-            "{option_number}",
-            "opção {option_number}"
+            "{option_number}"
+          ]
+        },
+        {
+          "name": "SetOptionOneIntent",
+          "slots": [],
+          "samples": [
+            "opção um",
+            "opção um pontos mais próximos",
+            "pontos mais próximos",
+            "por favor opção um pontos mais próximos",
+            "por favor pontos mais próximos",
+            "por favor opção um"
+          ]
+        },
+        {
+          "name": "SetOptionTwoIntent",
+          "slots": [],
+          "samples": [
+            "opção dois",
+            "opção dois estou no ponto de ônibus",
+            "estou no ponto de ônibus",
+            "por favor opção dois",
+            "por favor opção dois estou no ponto de ônibus",
+            "por favor estou no ponto de ônibus"
           ]
         }
       ],
