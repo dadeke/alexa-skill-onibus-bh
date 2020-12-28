@@ -23,6 +23,8 @@ Ela possui a capacidade de informar:
 Diga "Alexa, abrir Ônibus BH". Ela irá cumprimentá-lo e apresentar as opções.  
 Para ouvir as instruções, basta dizer a qualquer momento "ajuda".
 
+Aviso: Ainda não está reconhecendo com precisão os pontos dentro das estações do MOVE.
+
 Esta skill pode tentar distinguir a sua voz da voz de outras pessoas e lhe chamar pelo nome.  
 Este recurso é fornecido pela própria Alexa.  
 Maiores informações, basta dizer: "Alexa, aprenda a minha voz" ou acesse o aplicativo Alexa em Configurações > Meu perfil > Voz.
