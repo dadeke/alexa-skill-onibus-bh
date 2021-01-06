@@ -1,1 +1,31 @@
-lambda/package.json
+{
+  "name": "onibus-bh",
+  "version": "0.0.4",
+  "description": "Skill criada com o objetivo de tornar mais acessível para os deficientes visuais os pontos de ônibus da BHTrans da cidade de Belo Horizonte, MG.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage=false",
+    "test:cov": "jest"
+  },
+  "author": "DD Tecnologia",
+  "license": "MIT",
+  "dependencies": {
+    "ask-sdk": "^2.6.0",
+    "ask-sdk-core": "^2.7.0",
+    "ask-sdk-dynamodb-persistence-adapter": "^2.10.0",
+    "ask-sdk-model": "^1.19.0",
+    "aws-sdk": "^2.797.0",
+    "axios": "^0.21.1"
+  },
+  "devDependencies": {
+    "ask-sdk-local-debug": "^1.1.0",
+    "axios-mock-adapter": "^1.19.0",
+    "eslint": "6.8.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "jest": "^26.6.3",
+    "prettier": "^2.1.2"
+  }
+}
