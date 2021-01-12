@@ -1,34 +1,10 @@
 const speaks = require('../speakStrings');
-const { setLastAccess } = require('../util');
+const { getSpeakMinute, setLastAccess } = require('../util');
 
 const GeoSupported = require('./GeoSupportedResponse');
 
 const BHBus = require('../api/bhbus');
 const GMaps = require('../api/googlemaps');
-
-function formatSpeakNot(freshness) {
-  let speakFreshness = `${freshness} `;
-  if (freshness > 1) {
-    speakFreshness += speaks.OPTION1_MINUTES;
-  } else {
-    speakFreshness += speaks.OPTION1_MINUTE;
-  }
-
-  return speaks.OPTION2_NOT_BUSSTOP.format(speakFreshness);
-}
-
-function formatSpeakYes(freshness, busStops) {
-  let speakFreshness = `${freshness} `;
-  if (freshness > 1) {
-    speakFreshness += speaks.OPTION1_MINUTES;
-  } else {
-    speakFreshness += speaks.OPTION1_MINUTE;
-  }
-
-  const speakLocation = busStops[0].desc;
-
-  return speaks.OPTION2_YES_BUSSTOP.format(speakFreshness, speakLocation);
-}
 
 const OptionTwo = {
   async getResponse(handlerInput) {
@@ -63,7 +39,13 @@ const OptionTwo = {
         // Verificar se está próximo da parada de ônibus em
         // no mínimo 100 metros.
         if (dmElement.distance.value > 100) {
-          const speakOutput = formatSpeakNot(freshness);
+          const speakOutput = speaks.NOT_BUSSTOP.format(
+            getSpeakMinute(
+              freshness,
+              speaks.OPTION1_MINUTE,
+              speaks.OPTION1_MINUTES,
+            ),
+          );
 
           return handlerInput.responseBuilder
             .speak(speakOutput)
@@ -72,7 +54,14 @@ const OptionTwo = {
             .getResponse();
         }
 
-        const speakOutput = formatSpeakYes(freshness, busStops);
+        const speakOutput = speaks.OPTION2_YES_BUSSTOP.format(
+          getSpeakMinute(
+            freshness,
+            speaks.OPTION1_MINUTE,
+            speaks.OPTION1_MINUTES,
+          ),
+          busStops[0].desc,
+        );
 
         // Dados de sessão para continuar seguindo o fluxo da opção 2
         // caso o passageiro responda "sim" ou caso ele

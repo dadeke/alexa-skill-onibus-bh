@@ -42,6 +42,24 @@ module.exports.addSpaceBetweenFourDigits = function addSpaceBetweenFourDigits(
 };
 
 /* *
+ * Retorna "minuto" ou "minutos" conforme a quantidade do "freshness".
+ * */
+module.exports.getSpeakMinute = function getSpeakMinute(
+  freshness,
+  textMinute,
+  textMinutes,
+) {
+  let speakFreshness = `${freshness} `;
+  if (freshness > 1) {
+    speakFreshness += textMinutes;
+  } else {
+    speakFreshness += textMinute;
+  }
+
+  return speakFreshness;
+};
+
+/* *
  * Persistir que passageiro já acessou a fim de falar o "Bem vindo de volta!".
  * Utilizar o ID perfil de voz caso o mesmo esteja disponível.
  * */

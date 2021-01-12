@@ -7,30 +7,6 @@ const BHBus = require('../../lambda/api/bhbus');
 const GMaps = require('../../lambda/api/googlemaps');
 const speaks = require('../../lambda/speakStrings');
 
-function testFormatSpeakYes(freshness, busStops) {
-  let speakFreshness = `${freshness} `;
-  if (freshness > 1) {
-    speakFreshness += speaks.OPTION1_MINUTES;
-  } else {
-    speakFreshness += speaks.OPTION1_MINUTE;
-  }
-
-  const speakLocation = busStops[0].desc;
-
-  return speaks.OPTION2_YES_BUSSTOP.format(speakFreshness, speakLocation);
-}
-
-function testFormatSpeakNot(freshness) {
-  let speakFreshness = `${freshness} `;
-  if (freshness > 1) {
-    speakFreshness += speaks.OPTION1_MINUTES;
-  } else {
-    speakFreshness += speaks.OPTION1_MINUTE;
-  }
-
-  return speaks.OPTION2_NOT_BUSSTOP.format(speakFreshness);
-}
-
 describe('Test OptionTwoResponse', () => {
   const mockConsoleError = jest.fn();
   const getSessionAttributes = jest.fn();
@@ -160,9 +136,13 @@ describe('Test OptionTwoResponse', () => {
     BHBus.buscarParadasProximas = () => mockParadasProximas;
     GMaps.getDistanceMatrix = () => mockDistanceMatrix;
 
-    const speakOutput = testFormatSpeakYes(
-      freshness,
-      mockParadasProximas.paradas,
+    const speakOutput = speaks.OPTION2_YES_BUSSTOP.format(
+      Util.getSpeakMinute(
+        freshness,
+        speaks.OPTION1_MINUTE,
+        speaks.OPTION1_MINUTES,
+      ),
+      mockParadasProximas.paradas[0].desc,
     );
     // console.log(speakOutput);
 
@@ -189,9 +169,13 @@ describe('Test OptionTwoResponse', () => {
     BHBus.buscarParadasProximas = () => mockParadasProximas;
     GMaps.getDistanceMatrix = () => mockDistanceMatrix;
 
-    const speakOutput = testFormatSpeakYes(
-      freshness,
-      mockParadasProximas.paradas,
+    const speakOutput = speaks.OPTION2_YES_BUSSTOP.format(
+      Util.getSpeakMinute(
+        freshness,
+        speaks.OPTION1_MINUTE,
+        speaks.OPTION1_MINUTES,
+      ),
+      mockParadasProximas.paradas[0].desc,
     );
     // console.log(speakOutput);
 
@@ -231,7 +215,13 @@ describe('Test OptionTwoResponse', () => {
       status: 'OK',
     });
 
-    const speakOutput = testFormatSpeakNot(freshness);
+    const speakOutput = speaks.NOT_BUSSTOP.format(
+      Util.getSpeakMinute(
+        freshness,
+        speaks.OPTION1_MINUTE,
+        speaks.OPTION1_MINUTES,
+      ),
+    );
     // console.log(speakOutput);
 
     const outputSpeech = testResponseBuilder
@@ -270,7 +260,13 @@ describe('Test OptionTwoResponse', () => {
       status: 'OK',
     });
 
-    const speakOutput = testFormatSpeakNot(freshness);
+    const speakOutput = speaks.NOT_BUSSTOP.format(
+      Util.getSpeakMinute(
+        freshness,
+        speaks.OPTION1_MINUTE,
+        speaks.OPTION1_MINUTES,
+      ),
+    );
     // console.log(speakOutput);
 
     const outputSpeech = testResponseBuilder

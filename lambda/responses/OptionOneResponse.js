@@ -1,5 +1,5 @@
 const speaks = require('../speakStrings');
-const { setLastAccess } = require('../util');
+const { getSpeakMinute, setLastAccess } = require('../util');
 
 const GeoSupported = require('./GeoSupportedResponse');
 
@@ -7,12 +7,11 @@ const BHBus = require('../api/bhbus');
 const GMaps = require('../api/googlemaps');
 
 function formatSpeak(freshness, busStops, dmElements) {
-  let speakFreshness = `${freshness} `;
-  if (freshness > 1) {
-    speakFreshness += speaks.OPTION1_MINUTES;
-  } else {
-    speakFreshness += speaks.OPTION1_MINUTE;
-  }
+  const speakFreshness = getSpeakMinute(
+    freshness,
+    speaks.OPTION1_MINUTE,
+    speaks.OPTION1_MINUTES,
+  );
 
   let speak = null;
   if (busStops.length > 1) {
