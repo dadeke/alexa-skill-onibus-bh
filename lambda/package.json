@@ -1,7 +1,7 @@
 {
   "name": "onibus-bh",
-  "version": "0.1.0",
-  "description": "Skill criada com o objetivo de tornar mais acessível para os deficientes visuais os pontos de ônibus da BHTrans da cidade de Belo Horizonte, MG.",
+  "version": "0.1.1",
+  "description": "A skill Ônibus BH tem o objetivo principal de tornar mais acessível para os deficientes visuais, os pontos de ônibus da BHTrans em Belo Horizonte, MG.",
   "main": "index.js",
   "scripts": {
     "test": "jest --coverage=false",
