@@ -117,12 +117,12 @@ describe('Sequence 05. Test scenario: SetOptionThreeIntent', () => {
     };
 
     const optionThreeResponse =
-      speaks.NOT_BUSSTOP + speaks.OPTION3_CHOOSE_OPTION1;
+      speaks.NOT_BUSSTOP + speaks.CHOOSE_OPTION1;
 
     const mockGetResponse = testResponseBuilder
       .speak(optionThreeResponse)
       .withStandardCard(speaks.SKILL_NAME, optionThreeResponse)
-      .reprompt(speaks.OPTION3_CHOOSE_OPTION1)
+      .reprompt(speaks.CHOOSE_OPTION1)
       .getResponse();
 
     getSessionAttributes.mockReturnValueOnce({});

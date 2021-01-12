@@ -215,19 +215,20 @@ describe('Test OptionTwoResponse', () => {
       status: 'OK',
     });
 
-    const speakOutput = speaks.NOT_BUSSTOP.format(
-      Util.getSpeakMinute(
-        freshness,
-        speaks.OPTION1_MINUTE,
-        speaks.OPTION1_MINUTES,
-      ),
-    );
+    const speakOutput =
+      speaks.NOT_BUSSTOP.format(
+        Util.getSpeakMinute(
+          freshness,
+          speaks.OPTION1_MINUTE,
+          speaks.OPTION1_MINUTES,
+        ),
+      ) + speaks.CHOOSE_OPTION1;
     // console.log(speakOutput);
 
     const outputSpeech = testResponseBuilder
       .speak(speakOutput)
       .withStandardCard(speaks.SKILL_NAME, speakOutput)
-      .withShouldEndSession(true)
+      .reprompt(speaks.CHOOSE_OPTION1)
       .getResponse();
 
     const response = await OptionTwoResponse.getResponse(handlerInput);
@@ -260,19 +261,20 @@ describe('Test OptionTwoResponse', () => {
       status: 'OK',
     });
 
-    const speakOutput = speaks.NOT_BUSSTOP.format(
-      Util.getSpeakMinute(
-        freshness,
-        speaks.OPTION1_MINUTE,
-        speaks.OPTION1_MINUTES,
-      ),
-    );
+    const speakOutput =
+      speaks.NOT_BUSSTOP.format(
+        Util.getSpeakMinute(
+          freshness,
+          speaks.OPTION1_MINUTE,
+          speaks.OPTION1_MINUTES,
+        ),
+      ) + speaks.CHOOSE_OPTION1;
     // console.log(speakOutput);
 
     const outputSpeech = testResponseBuilder
       .speak(speakOutput)
       .withStandardCard(speaks.SKILL_NAME, speakOutput)
-      .withShouldEndSession(true)
+      .reprompt(speaks.CHOOSE_OPTION1)
       .getResponse();
 
     const response = await OptionTwoResponse.getResponse(handlerInput);

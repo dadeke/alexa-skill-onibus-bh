@@ -246,12 +246,12 @@ describe('Sequence 06. Test scenario: SetOptionIntent', () => {
     };
 
     const optionTwoResponse =
-      speaks.NOT_BUSSTOP + speaks.OPTION3_CHOOSE_OPTION1;
+      speaks.NOT_BUSSTOP + speaks.CHOOSE_OPTION1;
 
     const mockGetResponse = testResponseBuilder
       .speak(optionTwoResponse)
       .withStandardCard(speaks.SKILL_NAME, optionTwoResponse)
-      .reprompt(speaks.OPTION3_CHOOSE_OPTION1)
+      .reprompt(speaks.CHOOSE_OPTION1)
       .getResponse();
 
     getSessionAttributes.mockReturnValueOnce({});

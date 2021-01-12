@@ -64,8 +64,10 @@ const speaks = {
     'da BH TRANS, "{1}". ' +
     'Deseja ouvir quais linhas param nesse ponto?',
   OPTION2_BUSLINENUMBERS:
-    'Nesse ponto param as linhas de ônibus da BH TRANS: {0}. ' +
+    'Nesse ponto param as linhas de ônibus da BH TRANS: {0}. ',
+  OPTION2_SPECIFY_BUSLINE:
     'Deseja ouvir a previsão de parada de uma linha específica?',
+  OPTION2_THIS_BUSLINE: 'Deseja ouvir a previsão de parada dessa linha?',
   OPTION2_BUSSTOP_PREDICTION:
     'Linha de ônibus {0}, próxima previsão de parada, {1}.',
   OPTION2_NO_PREDICTION:
@@ -76,11 +78,8 @@ const speaks = {
     'que eu possa localizá-la. Por exemplo: "número 55 06 A". ' +
     'Por favor, poderia repetir?',
   // Opção 3
-  OPTION3_CHOOSE_OPTION1: 'Deseja ouvir os pontos mais próximos?',
   OPTION3_CHOOSE_OPTION2: 'Deseja ouvir quais linhas param nesse ponto?',
   // Compartilhados entre as opções 1, 2 e 3
-  WHAT_BUSLINE: 'Qual é o número da linha de ônibus?',
-  PLEASE_REPEAT: 'Por favor, poderia repetir?',
   SORRY_NOT_NEXTSTOPS:
     'Desculpe. Conforme a geolocalização do seu dispositivo, ' +
     'no momento não foi possível encontrar pontos de ônibus da BH TRANS ' +
@@ -92,6 +91,9 @@ const speaks = {
   SORRY_BUSLINE_NOT_STOP:
     'Desculpe. Não localizei a linha de ônibus número {0} ' +
     'nesse ponto de ônibus. ',
+  CHOOSE_OPTION1: 'Deseja ouvir os pontos mais próximos?',
+  WHAT_BUSLINE: 'Qual é o número da linha de ônibus?',
+  PLEASE_REPEAT: 'Por favor, poderia repetir?',
   // Ajuda
   HELP:
     'Qual das opções você deseja ouvir as instruções: opção 1? opção 2? ' +

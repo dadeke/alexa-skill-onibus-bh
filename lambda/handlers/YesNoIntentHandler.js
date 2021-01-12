@@ -6,6 +6,7 @@ const OptionOne = require('../responses/OptionOneResponse');
 const OptionTwo = require('../responses/OptionTwoResponse');
 const OptionThree = require('../responses/OptionThreeResponse');
 const BusLines = require('../responses/BusLinesResponse');
+const BusLine = require('../responses/BusLineResponse');
 
 const YesNoIntentHandler = {
   canHandle(handlerInput) {
@@ -116,6 +117,25 @@ const YesNoIntentHandler = {
         return response;
       }
 
+      // Caso seja apenas uma única linha de ônibus atendida na parada,
+      // retorna a previsão dela mesma de uma vez.
+      if (optionNumber === '2' && busLines !== false && busLines.length === 1) {
+        const slots = {
+          bus_line_string: {
+            value: busLines[0],
+          },
+        };
+        // console.log('optionNumber:', optionNumber);
+
+        const modifiedHandlerInput = handlerInput;
+        modifiedHandlerInput.requestEnvelope.request.intent.slots = slots;
+
+        const response = await BusLine.getResponse(modifiedHandlerInput);
+        return response;
+      }
+
+      // Caso sejam várias linhas de ônibus atendidas na parada,
+      // realiza o questionamento.
       if (optionNumber === '2' && busLines !== false) {
         return handlerInput.responseBuilder
           .speak(speaks.WHAT_BUSLINE)

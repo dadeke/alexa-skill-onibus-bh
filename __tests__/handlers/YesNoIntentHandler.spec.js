@@ -5,6 +5,7 @@ const OptionOne = require('../../lambda/responses/OptionOneResponse');
 const OptionTwo = require('../../lambda/responses/OptionTwoResponse');
 const OptionThree = require('../../lambda/responses/OptionThreeResponse');
 const BusLines = require('../../lambda/responses/BusLinesResponse');
+const BusLine = require('../../lambda/responses/BusLineResponse');
 const speaks = require('../../lambda/speakStrings');
 const Util = require('../../lambda/util');
 
@@ -16,6 +17,7 @@ describe('Sequence 08. Test scenario: YesNoIntent', () => {
   const mockOptionOneResponse = jest.fn();
   const mockOptionTwoResponse = jest.fn();
   const mockOptionThreeResponse = jest.fn();
+  const mockBusLinesResponse = jest.fn();
   const mockBusLineResponse = jest.fn();
   const mockGetNumberRand = jest.fn();
   const mockConsoleError = jest.fn();
@@ -24,7 +26,8 @@ describe('Sequence 08. Test scenario: YesNoIntent', () => {
   OptionOne.getResponse = mockOptionOneResponse;
   OptionTwo.getResponse = mockOptionTwoResponse;
   OptionThree.getResponse = mockOptionThreeResponse;
-  BusLines.getResponse = mockBusLineResponse;
+  BusLines.getResponse = mockBusLinesResponse;
+  BusLine.getResponse = mockBusLineResponse;
   Util.getNumberRand = mockGetNumberRand;
 
   const handlerInput = {
@@ -229,17 +232,66 @@ describe('Sequence 08. Test scenario: YesNoIntent', () => {
       optionNumber: '2',
     });
 
-    const optionTwoResponse = speaks.OPTION2_BUSLINENUMBERS.format(
-      '15 09 e 94 14',
-    );
-    const optionTwoResponseCard = speaks.OPTION2_BUSLINENUMBERS.format(
-      '1509 e 9414',
-    );
+    const optionTwoResponse =
+      speaks.OPTION2_BUSLINENUMBERS.format('15 09 e 94 14') +
+      speaks.OPTION2_SPECIFY_BUSLINE;
+    const optionTwoResponseCard =
+      speaks.OPTION2_BUSLINENUMBERS.format('1509 e 9414') +
+      speaks.OPTION2_SPECIFY_BUSLINE;
 
     const mockGetResponse = testResponseBuilder
       .speak(optionTwoResponse)
       .withStandardCard(speaks.SKILL_NAME, optionTwoResponseCard)
-      .reprompt(speaks.REPEAT_AGAIN)
+      .reprompt(optionTwoResponse)
+      .getResponse();
+
+    mockBusLinesResponse.mockReturnValueOnce(mockGetResponse);
+
+    const response = await YesNoIntentHandler.handle(handlerInput);
+
+    expect(response).toEqual(mockGetResponse);
+    expect(mockConsoleError).not.toHaveBeenCalled();
+  });
+
+  it('should be able can return response with only one bus line serving the stop', async () => {
+    getSessionAttributes.mockReturnValueOnce({
+      optionNumber: '2',
+    });
+
+    const optionTwoResponse =
+      speaks.OPTION2_BUSLINENUMBERS.format('94 14') +
+      speaks.OPTION2_THIS_BUSLINE;
+    const optionTwoResponseCard =
+      speaks.OPTION2_BUSLINENUMBERS.format('9414') +
+      speaks.OPTION2_THIS_BUSLINE;
+
+    const mockGetResponse = testResponseBuilder
+      .speak(optionTwoResponse)
+      .withStandardCard(speaks.SKILL_NAME, optionTwoResponseCard)
+      .reprompt(optionTwoResponse)
+      .getResponse();
+
+    mockBusLinesResponse.mockReturnValueOnce(mockGetResponse);
+
+    const response = await YesNoIntentHandler.handle(handlerInput);
+
+    expect(response).toEqual(mockGetResponse);
+    expect(mockConsoleError).not.toHaveBeenCalled();
+  });
+
+  it('should be able can return response with prediction when only one bus line serving the stop', async () => {
+    getSessionAttributes.mockReturnValueOnce({
+      optionNumber: '2',
+      busLines: ['9414'],
+    });
+
+    const mockGetResponse = testResponseBuilder
+      .speak(speaks.OPTION2_BUSSTOP_PREDICTION.format('94 14', '5 Minutos'))
+      .withStandardCard(
+        speaks.SKILL_NAME,
+        speaks.OPTION2_BUSSTOP_PREDICTION.format('9414', '5 Minutos'),
+      )
+      .reprompt(speaks.OPTION2_BUSSTOP_PREDICTION.format('94 14', '5 Minutos'))
       .getResponse();
 
     mockBusLineResponse.mockReturnValueOnce(mockGetResponse);
@@ -290,7 +342,7 @@ describe('Sequence 08. Test scenario: YesNoIntent', () => {
       .reprompt(speaks.REPEAT_AGAIN)
       .getResponse();
 
-    mockBusLineResponse.mockReturnValueOnce(mockGetResponse);
+    mockBusLinesResponse.mockReturnValueOnce(mockGetResponse);
 
     const response = await YesNoIntentHandler.handle(handlerInput);
 

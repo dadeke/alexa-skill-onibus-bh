@@ -71,12 +71,18 @@ const BusLines = {
         const busLinesOutput = formatSpeakBusLineNumbers(busLines);
         const busLinesCardOutput = formatSpeakBusLineNumbersCard(busLines);
 
-        const speakOutput = speaks.OPTION2_BUSLINENUMBERS.format(
-          busLinesOutput,
-        );
-        const speakOutputCard = speaks.OPTION2_BUSLINENUMBERS.format(
+        let speakOutput = speaks.OPTION2_BUSLINENUMBERS.format(busLinesOutput);
+        let speakOutputCard = speaks.OPTION2_BUSLINENUMBERS.format(
           busLinesCardOutput,
         );
+
+        if (busLines.length === 1) {
+          speakOutput += speaks.OPTION2_THIS_BUSLINE;
+          speakOutputCard += speaks.OPTION2_THIS_BUSLINE;
+        } else {
+          speakOutput += speaks.OPTION2_SPECIFY_BUSLINE;
+          speakOutputCard += speaks.OPTION2_SPECIFY_BUSLINE;
+        }
 
         // Dados de sessão para continuar seguindo o fluxo da opção 2 caso
         // o passageiro responda "Sim".

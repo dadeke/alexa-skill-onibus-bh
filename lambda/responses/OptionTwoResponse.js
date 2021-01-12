@@ -39,18 +39,19 @@ const OptionTwo = {
         // Verificar se está próximo da parada de ônibus em
         // no mínimo 100 metros.
         if (dmElement.distance.value > 100) {
-          const speakOutput = speaks.NOT_BUSSTOP.format(
-            getSpeakMinute(
-              freshness,
-              speaks.OPTION1_MINUTE,
-              speaks.OPTION1_MINUTES,
-            ),
-          );
+          const speakOutput =
+            speaks.NOT_BUSSTOP.format(
+              getSpeakMinute(
+                freshness,
+                speaks.OPTION1_MINUTE,
+                speaks.OPTION1_MINUTES,
+              ),
+            ) + speaks.CHOOSE_OPTION1;
 
           return handlerInput.responseBuilder
             .speak(speakOutput)
             .withStandardCard(speaks.SKILL_NAME, speakOutput)
-            .withShouldEndSession(true)
+            .reprompt(speaks.CHOOSE_OPTION1)
             .getResponse();
         }
 

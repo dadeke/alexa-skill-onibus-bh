@@ -210,12 +210,12 @@ describe('Test OptionThreeResponse', () => {
           speaks.OPTION1_MINUTE,
           speaks.OPTION1_MINUTES,
         ),
-      ) + speaks.OPTION3_CHOOSE_OPTION1;
+      ) + speaks.CHOOSE_OPTION1;
 
     const outputSpeech = testResponseBuilder
       .speak(speakOutput)
       .withStandardCard(speaks.SKILL_NAME, speakOutput)
-      .reprompt(speaks.OPTION3_CHOOSE_OPTION1)
+      .reprompt(speaks.CHOOSE_OPTION1)
       .getResponse();
 
     const response = await OptionThreeResponse.getResponse(handlerInput);

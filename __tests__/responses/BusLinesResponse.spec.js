@@ -70,6 +70,18 @@ describe('Test BusLinesResponse (Plural)', () => {
       },
     ],
   };
+  const mockLinhasQueAtendemParada2 = {
+    sucesso: true,
+    mensagem: '',
+    linhas: [
+      {
+        cod_linha: 683,
+        num_linha: '9414',
+        descricao: 'SANTA INÊS / JOAO PINHEIRO',
+        cor: 4,
+      },
+    ],
+  };
   const testResponseBuilder = Alexa.ResponseFactory.init();
 
   it('should be able can return response problem', async () => {
@@ -107,16 +119,17 @@ describe('Test BusLinesResponse (Plural)', () => {
       .speak(
         speaks.OPTION2_BUSLINENUMBERS.format(
           '11 45, 15 05, 15 09, 30 e 55 06 A',
-        ),
+        ) + speaks.OPTION2_SPECIFY_BUSLINE,
       )
       .withStandardCard(
         speaks.SKILL_NAME,
-        speaks.OPTION2_BUSLINENUMBERS.format('1145, 1505, 1509, 30 e 5506A'),
+        speaks.OPTION2_BUSLINENUMBERS.format('1145, 1505, 1509, 30 e 5506A') +
+          speaks.OPTION2_SPECIFY_BUSLINE,
       )
       .reprompt(
         speaks.OPTION2_BUSLINENUMBERS.format(
           '11 45, 15 05, 15 09, 30 e 55 06 A',
-        ),
+        ) + speaks.OPTION2_SPECIFY_BUSLINE,
       )
       .getResponse();
 
@@ -132,26 +145,22 @@ describe('Test BusLinesResponse (Plural)', () => {
       codBusStop: 8711,
     });
 
-    BHBus.retornaLinhasQueAtendemParada = () => ({
-      sucesso: true,
-      mensagem: '',
-      linhas: [
-        {
-          cod_linha: 683,
-          num_linha: '9414',
-          descricao: 'SANTA INÊS / JOAO PINHEIRO',
-          cor: 4,
-        },
-      ],
-    });
+    BHBus.retornaLinhasQueAtendemParada = () => mockLinhasQueAtendemParada2;
 
     const outputSpeech = testResponseBuilder
-      .speak(speaks.OPTION2_BUSLINENUMBERS.format('94 14'))
+      .speak(
+        speaks.OPTION2_BUSLINENUMBERS.format('94 14') +
+          speaks.OPTION2_THIS_BUSLINE,
+      )
       .withStandardCard(
         speaks.SKILL_NAME,
-        speaks.OPTION2_BUSLINENUMBERS.format('9414'),
+        speaks.OPTION2_BUSLINENUMBERS.format('9414') +
+          speaks.OPTION2_THIS_BUSLINE,
       )
-      .reprompt(speaks.OPTION2_BUSLINENUMBERS.format('94 14'))
+      .reprompt(
+        speaks.OPTION2_BUSLINENUMBERS.format('94 14') +
+          speaks.OPTION2_THIS_BUSLINE,
+      )
       .getResponse();
 
     const response = await BusLines.getResponse(handlerInput);
@@ -173,16 +182,17 @@ describe('Test BusLinesResponse (Plural)', () => {
       .speak(
         speaks.OPTION2_BUSLINENUMBERS.format(
           '11 45, 15 05, 15 09, 30 e 55 06 A',
-        ),
+        ) + speaks.OPTION2_SPECIFY_BUSLINE,
       )
       .withStandardCard(
         speaks.SKILL_NAME,
-        speaks.OPTION2_BUSLINENUMBERS.format('1145, 1505, 1509, 30 e 5506A'),
+        speaks.OPTION2_BUSLINENUMBERS.format('1145, 1505, 1509, 30 e 5506A') +
+          speaks.OPTION2_SPECIFY_BUSLINE,
       )
       .reprompt(
         speaks.OPTION2_BUSLINENUMBERS.format(
           '11 45, 15 05, 15 09, 30 e 55 06 A',
-        ),
+        ) + speaks.OPTION2_SPECIFY_BUSLINE,
       )
       .getResponse();
 
