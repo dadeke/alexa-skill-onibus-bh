@@ -109,6 +109,7 @@ const YesNoIntentHandler = {
         return response;
       }
 
+      // Retorna a(s) linha(s) de ônibus que atendem a parada.
       if (
         optionNumber === '2' &&
         (busLines === false || especificBusLine === true)
