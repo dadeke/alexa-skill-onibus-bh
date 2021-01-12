@@ -48,9 +48,12 @@ https://prefeitura.pbh.gov.br/bhtrans/informacoes/dados/dados-abertos
 
 ## Diagrama conversacional ##
 (Clique na imagem para acessar o diagrama.)
-[<p align="center">![Diagrama conversacional](https://i.imgur.com/XFiT9UF.png)</p>](https://whimsical.com/onibus-bh-SQaY6eQrdkX4TG8V5G759P)
+[<p align="center">![Diagrama conversacional](https://i.imgur.com/AmdDWlw.png)</p>](https://whimsical.com/onibus-bh-VXPayi8sy9RyxE6wCtmzLt)
 
 ## Changelog ##
+
+### 0.1.2 - 06/01/2021 ###
+- Adicionado a frase de invocação "Alexa, opção três do Ônibus BH" na descrição.
 
 ### 0.1.1 - 04/01/2021 ###
 - Adicionados ajustes na opção dois.
