@@ -52,6 +52,10 @@ https://prefeitura.pbh.gov.br/bhtrans/informacoes/dados/dados-abertos
 
 ## Changelog ##
 
+### 0.1.0 - 31/12/2020 ###
+- Adicionado a opção três: "Previsão de parada"
+- Adicionados textos de fala aleatórios ao dar boas vindas.
+
 ### 0.0.4 - 23/12/2020 ###
 - Adicionado aviso com relação as estações do MOVE.
 - Correção de respostas irrelevantes.
