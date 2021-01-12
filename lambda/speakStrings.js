@@ -27,11 +27,13 @@ const speaks = {
     'Por favor, escolha uma das opções ou peça ajuda: ' +
     'Opção 1) "Pontos mais próximos." ' +
     'Opção 2) "Estou no ponto de ônibus?" ' +
+    'Opção 3) "Previsão de parada." ' +
     'Qual é a opção escolhida?',
   OPTIONS_CARD:
     'Por favor, escolha uma das opções ou peça ajuda: \n\u200b\n' +
     'Opção 1) "Pontos mais próximos." \n\u200b\n' +
     'Opção 2) "Estou no ponto de ônibus?" \n\u200b\n' +
+    'Opção 3) "Previsão de parada." \n\u200b\n' +
     'Qual é a opção escolhida?',
   // Opção 1
   OPTION1:
@@ -49,16 +51,8 @@ const speaks = {
   OPTION1_CAUTION:
     'Atenção! Tenha cuidado com possíveis ' +
     'obstáculos. Pergunte alguém qual é a direção correta. ',
-  OPTION1_SORRY:
-    'Desculpe. Conforme a geolocalização do seu dispositivo, ' +
-    'no momento não foi possível encontrar pontos de ônibus da BH TRANS ' +
-    'mais próximos.',
   OPTION1_REPEAT: 'Gostaria que eu repetisse?',
   // Opção 2
-  OPTION2_NOT_BUSSTOP:
-    'Conforme a geolocalização do seu dispositivo há {0} atrás, ' +
-    'precisão num raio de 100 metros, você não está em um ponto de ônibus ' +
-    'da BH TRANS .',
   OPTION2_YES_BUSSTOP:
     'Conforme a geolocalização do seu dispositivo há {0} atrás, ' +
     'precisão num raio de 100 metros, você está no ponto de ônibus ' +
@@ -67,21 +61,36 @@ const speaks = {
   OPTION2_BUSLINENUMBERS:
     'Nesse ponto param as linhas de ônibus da BH TRANS: {0}. ' +
     'Deseja ouvir a previsão de parada de uma linha específica?',
-  OPTION2_WHATBUSLINE: 'Qual é o número da linha de ônibus?',
   OPTION2_BUSSTOP_PREDICTION:
     'Linha de ônibus {0}, próxima previsão de parada, {1}.',
   OPTION2_NO_PREDICTION:
     'Linha de ônibus {0}, sem previsões de parada no momento.',
-  OPTION2_BUSSTOP_SORRY:
-    'Desculpe. Não localizei a linha de ônibus número {0} ' +
-    'nesse ponto de ônibus. Por favor, poderia repetir?',
   OPTION2_BUSLINE_NOT_UNDERSTAND:
     'Desculpe, eu não entendi o número da linha de ônibus. ' +
     'Diga a palavra "número" antes da linha de ônibus para ' +
     'que eu possa localizá-la. Por exemplo: "número 55 06 A". ' +
     'Por favor, poderia repetir?',
+  // Opção 3
+  OPTION3_CHOOSE_OPTION1: 'Deseja ouvir os pontos mais próximos?',
+  OPTION3_CHOOSE_OPTION2: 'Deseja ouvir quais linhas param nesse ponto?',
+  // Compartilhados entre as opções 1, 2 e 3
+  WHAT_BUSLINE: 'Qual é o número da linha de ônibus?',
+  PLEASE_REPEAT: 'Por favor, poderia repetir?',
+  SORRY_NOT_NEXTSTOPS:
+    'Desculpe. Conforme a geolocalização do seu dispositivo, ' +
+    'no momento não foi possível encontrar pontos de ônibus da BH TRANS ' +
+    'mais próximos.',
+  NOT_BUSSTOP:
+    'Conforme a geolocalização do seu dispositivo há {0} atrás, precisão ' +
+    'num raio de 100 metros, você não está em um ponto de ônibus ' +
+    'da BH TRANS . ',
+  SORRY_BUSLINE_NOT_STOP:
+    'Desculpe. Não localizei a linha de ônibus número {0} ' +
+    'nesse ponto de ônibus. ',
   // Ajuda
-  HELP: 'Qual das opções você deseja ouvir as instruções: opção 1? ou opção 2?',
+  HELP:
+    'Qual das opções você deseja ouvir as instruções: opção 1? opção 2? ' +
+    'ou opção 3?',
   HELP_OPTION1:
     'Opção 1) Eu posso dizer até três pontos de ônibus da BH TRANS ' +
     'mais próximos conforme a geolocalização do seu dispositivo. ',
@@ -89,6 +98,9 @@ const speaks = {
     'Opção 2) Eu posso dizer se você está em um ponto de ônibus da BH TRANS ' +
     'conforme a geolocalização do seu dispositivo com precisão ' +
     'num raio de 100 metros. ',
+  HELP_OPTION3:
+    'Opção 3) Eu posso dizer a previsão de parada de uma linha de ônibus ' +
+    'específica desde que você já esteja no local. ',
   CHOOSE_OPTION: 'Deseja escolher essa opção?',
   // Sobre a geolocalização
   UNSUPPORTED_DEVICE_MSG:

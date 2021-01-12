@@ -93,6 +93,18 @@
             "por favor opção dois estou no ponto de ônibus",
             "por favor estou no ponto de ônibus"
           ]
+        },
+        {
+          "name": "SetOptionThreeIntent",
+          "slots": [],
+          "samples": [
+            "opção três",
+            "opção três previsão de parada",
+            "previsão de parada",
+            "por favor opção três",
+            "por favor opção três previsão de parada",
+            "por favor previsão de parada"
+          ]
         }
       ],
       "types": []

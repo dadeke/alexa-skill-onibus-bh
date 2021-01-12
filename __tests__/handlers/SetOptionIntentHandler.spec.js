@@ -3,6 +3,7 @@ const Alexa = require('ask-sdk-core');
 const SetOptionIntentHandler = require('../../lambda/handlers/SetOptionIntentHandler');
 const OptionOne = require('../../lambda/responses/OptionOneResponse');
 const OptionTwo = require('../../lambda/responses/OptionTwoResponse');
+const OptionThree = require('../../lambda/responses/OptionThreeResponse');
 const BusLine = require('../../lambda/responses/BusLineResponse');
 const speaks = require('../../lambda/speakStrings');
 
@@ -13,12 +14,14 @@ describe('Sequence 05. Test scenario: SetOptionIntent', () => {
   const savePersistentAttributes = jest.fn();
   const mockOptionOneResponse = jest.fn();
   const mockOptionTwoResponse = jest.fn();
+  const mockOptionThreeResponse = jest.fn();
   const mockBusLineResponse = jest.fn();
   const mockConsoleError = jest.fn();
   // eslint-disable-next-line no-console
   console.error = mockConsoleError;
   OptionOne.getResponse = mockOptionOneResponse;
   OptionTwo.getResponse = mockOptionTwoResponse;
+  OptionThree.getResponse = mockOptionThreeResponse;
   BusLine.getResponse = mockBusLineResponse;
 
   const handlerInput = {
@@ -103,7 +106,7 @@ describe('Sequence 05. Test scenario: SetOptionIntent', () => {
     expect(response).toEqual(outputSpeech);
     expect(mockConsoleError).toHaveBeenCalledWith(
       'Error:',
-      'SetOptionIntentHandler - codBusStop and especificBusLine and optionNumber not found',
+      'SetOptionIntentHandler - optionNumber and codBusStop and busLines not found',
     );
   });
 
@@ -144,6 +147,31 @@ describe('Sequence 05. Test scenario: SetOptionIntent', () => {
     });
 
     const speakOutput = speaks.HELP_OPTION2 + speaks.CHOOSE_OPTION;
+
+    const outputSpeech = testResponseBuilder
+      .speak(speakOutput)
+      .withStandardCard(speaks.SKILL_NAME, speakOutput)
+      .reprompt(speaks.CHOOSE_OPTION)
+      .getResponse();
+
+    const response = await SetOptionIntentHandler.handle(handlerInput);
+
+    expect(response).toEqual(outputSpeech);
+    expect(mockConsoleError).not.toHaveBeenCalled();
+  });
+
+  it('should be able can return help response of the option three', async () => {
+    handlerInput.requestEnvelope.request.intent.slots = {
+      option_number: {
+        value: '3',
+      },
+    };
+
+    getSessionAttributes.mockReturnValueOnce({
+      lastIntent: 'AMAZON.HelpIntent',
+    });
+
+    const speakOutput = speaks.HELP_OPTION3 + speaks.CHOOSE_OPTION;
 
     const outputSpeech = testResponseBuilder
       .speak(speakOutput)
@@ -210,6 +238,31 @@ describe('Sequence 05. Test scenario: SetOptionIntent', () => {
     expect(mockConsoleError).not.toHaveBeenCalled();
   });
 
+  it('should be able can return response of the option three', async () => {
+    handlerInput.requestEnvelope.request.intent.slots = {
+      option_number: {
+        value: '3',
+      },
+    };
+
+    const optionTwoResponse =
+      speaks.NOT_BUSSTOP + speaks.OPTION3_CHOOSE_OPTION1;
+
+    const mockGetResponse = testResponseBuilder
+      .speak(optionTwoResponse)
+      .withStandardCard(speaks.SKILL_NAME, optionTwoResponse)
+      .reprompt(speaks.OPTION3_CHOOSE_OPTION1)
+      .getResponse();
+
+    getSessionAttributes.mockReturnValueOnce({});
+    mockOptionThreeResponse.mockReturnValueOnce(mockGetResponse);
+
+    const response = await SetOptionIntentHandler.handle(handlerInput);
+
+    expect(response).toEqual(mockGetResponse);
+    expect(mockConsoleError).not.toHaveBeenCalled();
+  });
+
   it('should be not able can return response of the predicion for bus line stop', async () => {
     handlerInput.requestEnvelope.request.intent.slots = {
       option_number: {
@@ -234,7 +287,7 @@ describe('Sequence 05. Test scenario: SetOptionIntent', () => {
     expect(response).toEqual(mockGetResponse);
     expect(mockConsoleError).toHaveBeenCalledWith(
       'Error:',
-      'SetOptionIntentHandler - codBusStop and especificBusLine and optionNumber not found',
+      'SetOptionIntentHandler - optionNumber and codBusStop and busLines not found',
     );
   });
 
@@ -263,7 +316,7 @@ describe('Sequence 05. Test scenario: SetOptionIntent', () => {
 
     getSessionAttributes.mockReturnValueOnce({
       codBusStop: '8711',
-      especificBusLine: true,
+      busLines: ['1145', '1505', '1509', '30'],
     });
     mockBusLineResponse.mockReturnValueOnce(mockGetResponse);
 

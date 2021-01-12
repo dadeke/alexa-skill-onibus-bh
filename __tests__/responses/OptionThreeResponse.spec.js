@@ -1,37 +1,13 @@
 const Alexa = require('ask-sdk-core');
 
-const OptionTwoResponse = require('../../lambda/responses/OptionTwoResponse');
+const OptionThreeResponse = require('../../lambda/responses/OptionThreeResponse');
 const Util = require('../../lambda/util');
 const GeoSupported = require('../../lambda/responses/GeoSupportedResponse');
 const BHBus = require('../../lambda/api/bhbus');
 const GMaps = require('../../lambda/api/googlemaps');
 const speaks = require('../../lambda/speakStrings');
 
-function testFormatSpeakYes(freshness, busStops) {
-  let speakFreshness = `${freshness} `;
-  if (freshness > 1) {
-    speakFreshness += speaks.OPTION1_MINUTES;
-  } else {
-    speakFreshness += speaks.OPTION1_MINUTE;
-  }
-
-  const speakLocation = busStops[0].desc;
-
-  return speaks.OPTION2_YES_BUSSTOP.format(speakFreshness, speakLocation);
-}
-
-function testFormatSpeakNot(freshness) {
-  let speakFreshness = `${freshness} `;
-  if (freshness > 1) {
-    speakFreshness += speaks.OPTION1_MINUTES;
-  } else {
-    speakFreshness += speaks.OPTION1_MINUTE;
-  }
-
-  return speaks.OPTION2_NOT_BUSSTOP.format(speakFreshness);
-}
-
-describe('Test OptionTwoResponse', () => {
+describe('Test OptionThreeResponse', () => {
   const mockConsoleError = jest.fn();
   const getSessionAttributes = jest.fn();
   const setSessionAttributes = jest.fn();
@@ -62,8 +38,8 @@ describe('Test OptionTwoResponse', () => {
     sucesso: true,
     paradas: [
       {
-        cod: 11103,
-        desc: 'AVE SANTA MATILDE, 486',
+        cod: 8711,
+        desc: 'AVE AMAZONAS, 1518',
       },
     ],
   };
@@ -73,14 +49,44 @@ describe('Test OptionTwoResponse', () => {
         elements: [
           {
             distance: {
-              text: '75 m',
-              value: 75,
+              text: '5 m',
+              value: 5,
             },
           },
         ],
       },
     ],
     status: 'OK',
+  };
+  const mockLinhasQueAtendemParada = {
+    sucesso: true,
+    mensagem: '',
+    linhas: [
+      {
+        cod_linha: 32,
+        num_linha: '1145',
+        descricao: 'BAIRRO DAS INDUSTRIAS',
+        cor: 4,
+      },
+      {
+        cod_linha: 67,
+        num_linha: '1505',
+        descricao: 'ALTO DOS PINHEIROS/TUPI',
+        cor: 4,
+      },
+      {
+        cod_linha: 75,
+        num_linha: '1509',
+        descricao: 'CALIFORNIA/TUPI',
+        cor: 4,
+      },
+      {
+        cod_linha: 205,
+        num_linha: '30',
+        descricao: 'ESTACAO DIAMANTE/CENTRO',
+        cor: 4,
+      },
+    ],
   };
   const testResponseBuilder = Alexa.ResponseFactory.init();
 
@@ -95,12 +101,12 @@ describe('Test OptionTwoResponse', () => {
       .withShouldEndSession(true)
       .getResponse();
 
-    const response = await OptionTwoResponse.getResponse(handlerInput);
+    const response = await OptionThreeResponse.getResponse(handlerInput);
 
     expect(response).toEqual(outputSpeech);
     expect(mockConsoleError).toHaveBeenCalledWith(
       'Error:',
-      'OptionTwo.getResponse - Error: InternalError',
+      'OptionThree.getResponse - Error: InternalError',
     );
   });
 
@@ -115,7 +121,7 @@ describe('Test OptionTwoResponse', () => {
     BHBus.buscarParadasProximas = () => {};
     GMaps.getDistanceMatrix = () => {};
 
-    const response = await OptionTwoResponse.getResponse(handlerInput);
+    const response = await OptionThreeResponse.getResponse(handlerInput);
     // console.log(response);
 
     expect(response).toEqual(outputSpeech);
@@ -143,7 +149,7 @@ describe('Test OptionTwoResponse', () => {
       .withShouldEndSession(true)
       .getResponse();
 
-    const response = await OptionTwoResponse.getResponse(handlerInput);
+    const response = await OptionThreeResponse.getResponse(handlerInput);
 
     expect(response).toEqual(outputSpeech);
     expect(mockConsoleError).not.toHaveBeenCalled();
@@ -159,49 +165,15 @@ describe('Test OptionTwoResponse', () => {
     });
     BHBus.buscarParadasProximas = () => mockParadasProximas;
     GMaps.getDistanceMatrix = () => mockDistanceMatrix;
-
-    const speakOutput = testFormatSpeakYes(
-      freshness,
-      mockParadasProximas.paradas,
-    );
-    // console.log(speakOutput);
+    BHBus.retornaLinhasQueAtendemParada = () => mockLinhasQueAtendemParada;
 
     const outputSpeech = testResponseBuilder
-      .speak(speakOutput)
-      .withStandardCard(speaks.SKILL_NAME, speakOutput)
-      .reprompt(speakOutput)
+      .speak(speaks.WHAT_BUSLINE)
+      .withStandardCard(speaks.SKILL_NAME, speaks.WHAT_BUSLINE)
+      .reprompt(speaks.WHAT_BUSLINE)
       .getResponse();
 
-    const response = await OptionTwoResponse.getResponse(handlerInput);
-
-    expect(response).toEqual(outputSpeech);
-    expect(mockConsoleError).not.toHaveBeenCalled();
-  });
-
-  it('should be able can return response with freshness in 1 minute', async () => {
-    const freshness = 1;
-
-    GeoSupported.getResponse = () => ({
-      freshness,
-      latitude: '-19.925374',
-      longitude: '-43.998182',
-    });
-    BHBus.buscarParadasProximas = () => mockParadasProximas;
-    GMaps.getDistanceMatrix = () => mockDistanceMatrix;
-
-    const speakOutput = testFormatSpeakYes(
-      freshness,
-      mockParadasProximas.paradas,
-    );
-    // console.log(speakOutput);
-
-    const outputSpeech = testResponseBuilder
-      .speak(speakOutput)
-      .withStandardCard(speaks.SKILL_NAME, speakOutput)
-      .reprompt(speakOutput)
-      .getResponse();
-
-    const response = await OptionTwoResponse.getResponse(handlerInput);
+    const response = await OptionThreeResponse.getResponse(handlerInput);
 
     expect(response).toEqual(outputSpeech);
     expect(mockConsoleError).not.toHaveBeenCalled();
@@ -231,55 +203,22 @@ describe('Test OptionTwoResponse', () => {
       status: 'OK',
     });
 
-    const speakOutput = testFormatSpeakNot(freshness);
-    // console.log(speakOutput);
+    const speakOutput =
+      speaks.NOT_BUSSTOP.format(
+        Util.getSpeakMinute(
+          freshness,
+          speaks.OPTION1_MINUTE,
+          speaks.OPTION1_MINUTES,
+        ),
+      ) + speaks.OPTION3_CHOOSE_OPTION1;
 
     const outputSpeech = testResponseBuilder
       .speak(speakOutput)
       .withStandardCard(speaks.SKILL_NAME, speakOutput)
-      .withShouldEndSession(true)
+      .reprompt(speaks.OPTION3_CHOOSE_OPTION1)
       .getResponse();
 
-    const response = await OptionTwoResponse.getResponse(handlerInput);
-
-    expect(response).toEqual(outputSpeech);
-    expect(mockConsoleError).not.toHaveBeenCalled();
-  });
-
-  it('should be able can return response is not bus stop with freshness in 1 minute', async () => {
-    const freshness = 1;
-
-    GeoSupported.getResponse = () => ({
-      freshness,
-      latitude: '-19.925374',
-      longitude: '-43.998182',
-    });
-    BHBus.buscarParadasProximas = () => mockParadasProximas;
-    GMaps.getDistanceMatrix = () => ({
-      rows: [
-        {
-          elements: [
-            {
-              distance: {
-                value: 101,
-              },
-            },
-          ],
-        },
-      ],
-      status: 'OK',
-    });
-
-    const speakOutput = testFormatSpeakNot(freshness);
-    // console.log(speakOutput);
-
-    const outputSpeech = testResponseBuilder
-      .speak(speakOutput)
-      .withStandardCard(speaks.SKILL_NAME, speakOutput)
-      .withShouldEndSession(true)
-      .getResponse();
-
-    const response = await OptionTwoResponse.getResponse(handlerInput);
+    const response = await OptionThreeResponse.getResponse(handlerInput);
 
     expect(response).toEqual(outputSpeech);
     expect(mockConsoleError).not.toHaveBeenCalled();

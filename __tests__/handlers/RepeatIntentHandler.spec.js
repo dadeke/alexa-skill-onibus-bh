@@ -76,6 +76,26 @@ describe('Sequence 02. Test scenario: RepeatIntent', () => {
     expect(response).toEqual(outputSpeech);
   });
 
+  it('should be able can return help repeating response of the option three', async () => {
+    getSessionAttributes.mockReturnValueOnce({
+      lastIntent: 'AMAZON.HelpIntent',
+      optionNumber: '3',
+    });
+
+    const speakOutput =
+      speaks.REPEATING + speaks.HELP_OPTION3 + speaks.CHOOSE_OPTION;
+
+    const outputSpeech = testResponseBuilder
+      .speak(speakOutput)
+      .withStandardCard(speaks.SKILL_NAME, speakOutput)
+      .reprompt(speaks.CHOOSE_OPTION)
+      .getResponse();
+
+    const response = await RepeatIntentHandler.handle(handlerInput);
+
+    expect(response).toEqual(outputSpeech);
+  });
+
   it('should be able can return response repeating of the option one', async () => {
     getSessionAttributes.mockReturnValueOnce({
       // O conteúdo da fala aqui foi desconsiderado.

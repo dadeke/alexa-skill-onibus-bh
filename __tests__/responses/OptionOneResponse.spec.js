@@ -271,8 +271,8 @@ describe('Test OptionOneResponse', () => {
     GMaps.getDistanceMatrix = () => {};
 
     const outputSpeech = testResponseBuilder
-      .speak(speaks.OPTION1_SORRY)
-      .withStandardCard(speaks.SKILL_NAME, speaks.OPTION1_SORRY)
+      .speak(speaks.SORRY_NOT_NEXTSTOPS)
+      .withStandardCard(speaks.SKILL_NAME, speaks.SORRY_NOT_NEXTSTOPS)
       .withShouldEndSession(true)
       .getResponse();
 

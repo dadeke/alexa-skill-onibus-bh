@@ -57,7 +57,7 @@ describe('Sequence 06. Test scenario: SetBusLineIntent', () => {
   it('should be able can return with response I have a problem when an exception happens', async () => {
     getSessionAttributes.mockReturnValueOnce({
       codBusStop: '8711',
-      especificBusLine: true,
+      busLines: ['1145', '1505', '1509', '30'],
     });
     getResponse.mockImplementationOnce(() => {
       throw new Error('InternalError'); // Simula um erro genérico.
@@ -99,7 +99,7 @@ describe('Sequence 06. Test scenario: SetBusLineIntent', () => {
   it('should be able can return response', async () => {
     getSessionAttributes.mockReturnValueOnce({
       codBusStop: '8711',
-      especificBusLine: true,
+      busLines: ['1145', '1505', '1509', '30'],
     });
 
     await SetBusLineIntentHandler.handle(handlerInput);

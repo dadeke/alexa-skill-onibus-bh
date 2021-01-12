@@ -54,11 +54,19 @@ const BusLines = {
       )
         ? sessionAttributes.codBusStop
         : false;
+      let busLines = Object.prototype.hasOwnProperty.call(
+        sessionAttributes,
+        'busLines',
+      )
+        ? sessionAttributes.busLines
+        : false;
 
       if (codBusStop !== false) {
-        let busLines = await BHBus.retornaLinhasQueAtendemParada(codBusStop);
-        busLines = busLines.linhas.map(item => item.num_linha);
-        // console.log('busLines:', busLines);
+        if (busLines === false) {
+          busLines = await BHBus.retornaLinhasQueAtendemParada(codBusStop);
+          busLines = busLines.linhas.map(item => item.num_linha);
+          // console.log('busLines:', busLines);
+        }
 
         const busLinesOutput = formatSpeakBusLineNumbers(busLines);
         const busLinesCardOutput = formatSpeakBusLineNumbersCard(busLines);
@@ -74,7 +82,7 @@ const BusLines = {
         // o passageiro responda "Sim".
         sessionAttributes.optionNumber = '2';
         sessionAttributes.codBusStop = codBusStop;
-        sessionAttributes.especificBusLine = true;
+        sessionAttributes.especificBusLine = false;
         sessionAttributes.busLines = busLines;
         sessionAttributes.BusLinesResponseCache = speakOutput;
         sessionAttributes.BusLinesResponseCardCache = speakOutputCard;

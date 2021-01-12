@@ -21,6 +21,12 @@ const BusLine = {
       )
         ? sessionAttributes.codBusStop
         : false;
+      const especificBusLine = Object.prototype.hasOwnProperty.call(
+        sessionAttributes,
+        'especificBusLine',
+      )
+        ? sessionAttributes.especificBusLine
+        : false;
       const busLines = Object.prototype.hasOwnProperty.call(
         sessionAttributes,
         'busLines',
@@ -47,8 +53,35 @@ const BusLine = {
         // Verifica se o número da linha de ônibus que o passageiro falou,
         // realmente existe neste ponto de parada da BH TRANS.
         if (!busLines.includes(busLine)) {
-          speakOutput = speaks.OPTION2_BUSSTOP_SORRY.format(busLineSpeak);
-          speakOutputCard = speaks.OPTION2_BUSSTOP_SORRY.format(busLine);
+          if (especificBusLine === true) {
+            speakOutput =
+              speaks.SORRY_BUSLINE_NOT_STOP.format(busLineSpeak) +
+              speaks.OPTION3_CHOOSE_OPTION2;
+            speakOutputCard =
+              speaks.SORRY_BUSLINE_NOT_STOP.format(busLine) +
+              speaks.OPTION3_CHOOSE_OPTION2;
+
+            // Dados de sessão para pular para opção 2 caso o passageiro
+            // responda "sim".
+            sessionAttributes.optionNumber = '2';
+            sessionAttributes.codBusStop = codBusStop;
+            sessionAttributes.especificBusLine = true;
+            sessionAttributes.busLines = busLines;
+            attributesManager.setSessionAttributes(sessionAttributes);
+
+            return handlerInput.responseBuilder
+              .speak(speakOutput)
+              .withStandardCard(speaks.SKILL_NAME, speakOutputCard)
+              .reprompt(speakOutput)
+              .getResponse();
+          }
+
+          speakOutput =
+            speaks.SORRY_BUSLINE_NOT_STOP.format(busLineSpeak) +
+            speaks.PLEASE_REPEAT;
+          speakOutputCard =
+            speaks.SORRY_BUSLINE_NOT_STOP.format(busLine) +
+            speaks.PLEASE_REPEAT;
 
           return handlerInput.responseBuilder
             .speak(speakOutput)

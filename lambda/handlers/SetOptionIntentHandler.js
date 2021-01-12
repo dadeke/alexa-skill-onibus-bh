@@ -2,6 +2,7 @@ const Alexa = require('ask-sdk-core');
 
 const OptionOne = require('../responses/OptionOneResponse');
 const OptionTwo = require('../responses/OptionTwoResponse');
+const OptionThree = require('../responses/OptionThreeResponse');
 const BusLine = require('../responses/BusLineResponse');
 const speaks = require('../speakStrings');
 const { setLastAccess } = require('../util');
@@ -38,19 +39,25 @@ const SetOptionIntentHandler = {
         ? sessionAttributes.codBusStop
         : false;
 
-      const especificBusLine = Object.prototype.hasOwnProperty.call(
+      const busLines = Object.prototype.hasOwnProperty.call(
         sessionAttributes,
-        'especificBusLine',
+        'busLines',
       )
-        ? sessionAttributes.especificBusLine
+        ? sessionAttributes.busLines
         : false;
 
       if (
         lastIntent === 'AMAZON.HelpIntent' &&
-        (optionNumber === '1' || optionNumber === '2')
+        (optionNumber === '1' || optionNumber === '2' || optionNumber === '3')
       ) {
-        let speakOutput =
-          optionNumber === '1' ? speaks.HELP_OPTION1 : speaks.HELP_OPTION2;
+        let speakOutput = '';
+        if (optionNumber === '1') {
+          speakOutput += speaks.HELP_OPTION1;
+        } else if (optionNumber === '2') {
+          speakOutput += speaks.HELP_OPTION2;
+        } else {
+          speakOutput += speaks.HELP_OPTION3;
+        }
         speakOutput += speaks.CHOOSE_OPTION;
 
         sessionAttributes.OptionOneResponseCache = undefined;
@@ -78,13 +85,19 @@ const SetOptionIntentHandler = {
         return response;
       }
 
+      if (optionNumber === '3') {
+        const response = await OptionThree.getResponse(handlerInput);
+        return response;
+      }
+
       // Em último caso, pode ser número de linha de ônibus.
-      if (codBusStop !== false && especificBusLine !== false && optionNumber) {
+      if (optionNumber && codBusStop !== false && busLines !== false) {
         const slots = {
           bus_line_string: {
             value: optionNumber,
           },
         };
+        // console.log('optionNumber:', optionNumber);
 
         const modifiedHandlerInput = handlerInput;
         modifiedHandlerInput.requestEnvelope.request.intent.slots = slots;
@@ -97,7 +110,7 @@ const SetOptionIntentHandler = {
       console.error(
         'Error:',
         'SetOptionIntentHandler - ' +
-          'codBusStop and especificBusLine and optionNumber not found',
+          'optionNumber and codBusStop and busLines not found',
       );
 
       return handlerInput.responseBuilder

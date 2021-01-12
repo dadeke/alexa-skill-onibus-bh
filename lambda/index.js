@@ -6,6 +6,7 @@ const LaunchRequestHandler = require('./handlers/LaunchRequestHandler');
 const SetOptionIntentHandler = require('./handlers/SetOptionIntentHandler');
 const SetOptionOneIntentHandler = require('./handlers/SetOptionOneIntentHandler');
 const SetOptionTwoIntentHandler = require('./handlers/SetOptionTwoIntentHandler');
+const SetOptionThreeIntentHandler = require('./handlers/SetOptionThreeIntentHandler');
 const SetBusLineIntentHandler = require('./handlers/SetBusLineIntentHandler');
 const RepeatIntentHandler = require('./handlers/RepeatIntentHandler');
 const YesNoIntentHandler = require('./handlers/YesNoIntentHandler');
@@ -41,6 +42,7 @@ exports.handler = Alexa.SkillBuilders.custom()
     RepeatIntentHandler,
     SetOptionOneIntentHandler,
     SetOptionTwoIntentHandler,
+    SetOptionThreeIntentHandler,
     SetOptionIntentHandler,
     SetBusLineIntentHandler,
     YesNoIntentHandler,

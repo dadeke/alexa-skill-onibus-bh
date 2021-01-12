@@ -7,6 +7,7 @@ const speaks = require('../../lambda/speakStrings');
 describe('Test BusLineResponse', () => {
   const mockConsoleError = jest.fn();
   const getSessionAttributes = jest.fn();
+  const setSessionAttributes = jest.fn();
   const setPersistentAttributes = jest.fn();
   const savePersistentAttributes = jest.fn();
   // eslint-disable-next-line no-console
@@ -15,6 +16,7 @@ describe('Test BusLineResponse', () => {
   const handlerInput = {
     attributesManager: {
       getSessionAttributes,
+      setSessionAttributes,
       setPersistentAttributes,
       savePersistentAttributes,
     },
@@ -179,13 +181,47 @@ describe('Test BusLineResponse', () => {
 
     BHBus.buscarPrevisoes = () => mockPrevisoes;
 
+    const speakOutput =
+      speaks.SORRY_BUSLINE_NOT_STOP.format('81 07') + speaks.PLEASE_REPEAT;
+
     const outputSpeech = testResponseBuilder
-      .speak(speaks.OPTION2_BUSSTOP_SORRY.format('81 07'))
+      .speak(speakOutput)
       .withStandardCard(
         speaks.SKILL_NAME,
-        speaks.OPTION2_BUSSTOP_SORRY.format('8107'),
+        speaks.SORRY_BUSLINE_NOT_STOP.format('8107') + speaks.PLEASE_REPEAT,
       )
-      .reprompt(speaks.OPTION2_BUSSTOP_SORRY.format('81 07'))
+      .reprompt(speakOutput)
+      .getResponse();
+
+    const response = await BusLine.getResponse(handlerInput);
+
+    expect(response).toEqual(outputSpeech);
+    expect(mockConsoleError).not.toHaveBeenCalled();
+  });
+
+  it('should be able can return response sorry when bus line is not includes in bus stop coming from option three', async () => {
+    handlerInput.requestEnvelope.request.intent.slots.bus_line_string.value =
+      '81 07';
+    getSessionAttributes.mockReturnValueOnce({
+      codBusStop: 8711,
+      especificBusLine: true,
+      busLines: ['1145', '1505', '1509', '30'],
+    });
+
+    BHBus.buscarPrevisoes = () => mockPrevisoes;
+
+    const speakOutput =
+      speaks.SORRY_BUSLINE_NOT_STOP.format('81 07') +
+      speaks.OPTION3_CHOOSE_OPTION2;
+
+    const outputSpeech = testResponseBuilder
+      .speak(speakOutput)
+      .withStandardCard(
+        speaks.SKILL_NAME,
+        speaks.SORRY_BUSLINE_NOT_STOP.format('8107') +
+          speaks.OPTION3_CHOOSE_OPTION2,
+      )
+      .reprompt(speakOutput)
       .getResponse();
 
     const response = await BusLine.getResponse(handlerInput);

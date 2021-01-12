@@ -161,6 +161,38 @@ describe('Test BusLinesResponse (Plural)', () => {
     expect(mockConsoleError).not.toHaveBeenCalled();
   });
 
+  it('should be able can return response coming from option three', async () => {
+    getSessionAttributes.mockReturnValueOnce({
+      codBusStop: 8711,
+      busLines: ['1145', '1505', '1509', '30', '5506A'],
+    });
+
+    BHBus.retornaLinhasQueAtendemParada = () => mockLinhasQueAtendemParada;
+
+    const outputSpeech = testResponseBuilder
+      .speak(
+        speaks.OPTION2_BUSLINENUMBERS.format(
+          '11 45, 15 05, 15 09, 30 e 55 06 A',
+        ),
+      )
+      .withStandardCard(
+        speaks.SKILL_NAME,
+        speaks.OPTION2_BUSLINENUMBERS.format('1145, 1505, 1509, 30 e 5506A'),
+      )
+      .reprompt(
+        speaks.OPTION2_BUSLINENUMBERS.format(
+          '11 45, 15 05, 15 09, 30 e 55 06 A',
+        ),
+      )
+      .getResponse();
+
+    const response = await BusLines.getResponse(handlerInput);
+    // console.log(response);
+
+    expect(response).toEqual(outputSpeech);
+    expect(mockConsoleError).not.toHaveBeenCalled();
+  });
+
   it('should be able can return response problem when sessionAttributes return null', async () => {
     getSessionAttributes.mockReturnValueOnce(null);
 

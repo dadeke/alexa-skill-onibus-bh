@@ -23,14 +23,14 @@ const SetBusLineIntentHandler = {
         ? sessionAttributes.codBusStop
         : false;
 
-      const especificBusLine = Object.prototype.hasOwnProperty.call(
+      const busLines = Object.prototype.hasOwnProperty.call(
         sessionAttributes,
-        'especificBusLine',
+        'busLines',
       )
-        ? sessionAttributes.especificBusLine
+        ? sessionAttributes.busLines
         : false;
 
-      if (codBusStop !== false && especificBusLine !== false) {
+      if (codBusStop !== false && busLines !== false) {
         const response = await BusLine.getResponse(handlerInput);
         return response;
       }

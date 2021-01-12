@@ -1,36 +1,12 @@
 const speaks = require('../speakStrings');
-const { setLastAccess } = require('../util');
+const { getSpeakMinute, setLastAccess } = require('../util');
 
 const GeoSupported = require('./GeoSupportedResponse');
 
 const BHBus = require('../api/bhbus');
 const GMaps = require('../api/googlemaps');
 
-function formatSpeakNot(freshness) {
-  let speakFreshness = `${freshness} `;
-  if (freshness > 1) {
-    speakFreshness += speaks.OPTION1_MINUTES;
-  } else {
-    speakFreshness += speaks.OPTION1_MINUTE;
-  }
-
-  return speaks.OPTION2_NOT_BUSSTOP.format(speakFreshness);
-}
-
-function formatSpeakYes(freshness, busStops) {
-  let speakFreshness = `${freshness} `;
-  if (freshness > 1) {
-    speakFreshness += speaks.OPTION1_MINUTES;
-  } else {
-    speakFreshness += speaks.OPTION1_MINUTE;
-  }
-
-  const speakLocation = busStops[0].desc;
-
-  return speaks.OPTION2_YES_BUSSTOP.format(speakFreshness, speakLocation);
-}
-
-const OptionTwo = {
+const OptionThree = {
   async getResponse(handlerInput) {
     try {
       const response = await GeoSupported.getResponse(handlerInput);
@@ -63,39 +39,56 @@ const OptionTwo = {
         // Verificar se está próximo da parada de ônibus em
         // no mínimo 100 metros.
         if (dmElement.distance.value > 100) {
-          const speakOutput = formatSpeakNot(freshness);
+          const speakOutput =
+            speaks.NOT_BUSSTOP.format(
+              getSpeakMinute(
+                freshness,
+                speaks.OPTION1_MINUTE,
+                speaks.OPTION1_MINUTES,
+              ),
+            ) + speaks.OPTION3_CHOOSE_OPTION1;
+
+          // Dados de sessão para pular para opção 1 caso o passageiro
+          // responda "sim".
+          const { attributesManager } = handlerInput;
+          const sessionAttributes =
+            attributesManager.getSessionAttributes() || {};
+          sessionAttributes.optionNumber = '1';
+          attributesManager.setSessionAttributes(sessionAttributes);
 
           return handlerInput.responseBuilder
             .speak(speakOutput)
             .withStandardCard(speaks.SKILL_NAME, speakOutput)
-            .withShouldEndSession(true)
+            .reprompt(speaks.OPTION3_CHOOSE_OPTION1)
             .getResponse();
         }
 
-        const speakOutput = formatSpeakYes(freshness, busStops);
+        let busLines = await BHBus.retornaLinhasQueAtendemParada(
+          busStops[0].cod,
+        );
+        busLines = busLines.linhas.map(item => item.num_linha);
 
-        // Dados de sessão para continuar seguindo o fluxo da opção 2
-        // caso o passageiro responda "sim" ou caso ele
-        // peça para "repetir".
+        // Dados de sessão para continuar seguindo o fluxo da opção 3.
         const { attributesManager } = handlerInput;
         const sessionAttributes =
           attributesManager.getSessionAttributes() || {};
-        sessionAttributes.optionNumber = '2';
+        sessionAttributes.optionNumber = '3';
         sessionAttributes.codBusStop = busStops[0].cod;
-        sessionAttributes.OptionTwoResponseCache = speakOutput;
+        sessionAttributes.especificBusLine = true;
+        sessionAttributes.busLines = busLines;
         attributesManager.setSessionAttributes(sessionAttributes);
 
         return handlerInput.responseBuilder
-          .speak(speakOutput)
-          .withStandardCard(speaks.SKILL_NAME, speakOutput)
-          .reprompt(speakOutput)
+          .speak(speaks.WHAT_BUSLINE)
+          .withStandardCard(speaks.SKILL_NAME, speaks.WHAT_BUSLINE)
+          .reprompt(speaks.WHAT_BUSLINE)
           .getResponse();
       }
 
       return response;
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.error('Error:', `OptionTwo.getResponse - ${error}`);
+      console.error('Error:', `OptionThree.getResponse - ${error}`);
     }
 
     await setLastAccess(handlerInput);
@@ -108,4 +101,4 @@ const OptionTwo = {
   },
 };
 
-module.exports = OptionTwo;
+module.exports = OptionThree;

@@ -57,11 +57,16 @@ const RepeatIntentHandler = {
     // Repete as opções de ajuda.
     if (
       lastIntent === 'AMAZON.HelpIntent' &&
-      (optionNumber === '1' || optionNumber === '2')
+      (optionNumber === '1' || optionNumber === '2' || optionNumber === '3')
     ) {
-      let speakOutput =
-        optionNumber === '1' ? speaks.HELP_OPTION1 : speaks.HELP_OPTION2;
-      speakOutput = speaks.REPEATING + speakOutput;
+      let speakOutput = speaks.REPEATING;
+      if (optionNumber === '1') {
+        speakOutput += speaks.HELP_OPTION1;
+      } else if (optionNumber === '2') {
+        speakOutput += speaks.HELP_OPTION2;
+      } else {
+        speakOutput += speaks.HELP_OPTION3;
+      }
       speakOutput += speaks.CHOOSE_OPTION;
 
       return handlerInput.responseBuilder

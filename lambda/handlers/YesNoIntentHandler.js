@@ -4,6 +4,7 @@ const Util = require('../util');
 
 const OptionOne = require('../responses/OptionOneResponse');
 const OptionTwo = require('../responses/OptionTwoResponse');
+const OptionThree = require('../responses/OptionThreeResponse');
 const BusLines = require('../responses/BusLinesResponse');
 
 const YesNoIntentHandler = {
@@ -44,9 +45,16 @@ const YesNoIntentHandler = {
     )
       ? sessionAttributes.especificBusLine
       : false;
+    const busLines = Object.prototype.hasOwnProperty.call(
+      sessionAttributes,
+      'busLines',
+    )
+      ? sessionAttributes.busLines
+      : false;
     // console.log('optionNumber:', optionNumber);
     // console.log('OptionOneResponseCache:', OptionOneResponseCache);
     // console.log('especificBusLine:', especificBusLine);
+    // console.log('busLines:', busLines);
 
     const intentName = Alexa.getIntentName(handlerInput.requestEnvelope);
 
@@ -62,6 +70,11 @@ const YesNoIntentHandler = {
 
         if (optionNumber === '2') {
           const response = await OptionTwo.getResponse(handlerInput);
+          return response;
+        }
+
+        if (optionNumber === '3') {
+          const response = await OptionThree.getResponse(handlerInput);
           return response;
         }
 
@@ -90,16 +103,24 @@ const YesNoIntentHandler = {
           .getResponse();
       }
 
-      if (optionNumber === '2' && especificBusLine === false) {
+      if (optionNumber === '1') {
+        const response = await OptionOne.getResponse(handlerInput);
+        return response;
+      }
+
+      if (
+        optionNumber === '2' &&
+        (busLines === false || especificBusLine === true)
+      ) {
         const response = await BusLines.getResponse(handlerInput);
         return response;
       }
 
-      if (optionNumber === '2' && especificBusLine === true) {
+      if (optionNumber === '2' && busLines !== false) {
         return handlerInput.responseBuilder
-          .speak(speaks.OPTION2_WHATBUSLINE)
-          .withStandardCard(speaks.SKILL_NAME, speaks.OPTION2_WHATBUSLINE)
-          .reprompt(speaks.OPTION2_WHATBUSLINE)
+          .speak(speaks.WHAT_BUSLINE)
+          .withStandardCard(speaks.SKILL_NAME, speaks.WHAT_BUSLINE)
+          .reprompt(speaks.WHAT_BUSLINE)
           .getResponse();
       }
 

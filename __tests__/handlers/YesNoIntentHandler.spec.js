@@ -3,6 +3,7 @@ const Alexa = require('ask-sdk-core');
 const YesNoIntentHandler = require('../../lambda/handlers/YesNoIntentHandler');
 const OptionOne = require('../../lambda/responses/OptionOneResponse');
 const OptionTwo = require('../../lambda/responses/OptionTwoResponse');
+const OptionThree = require('../../lambda/responses/OptionThreeResponse');
 const BusLines = require('../../lambda/responses/BusLinesResponse');
 const speaks = require('../../lambda/speakStrings');
 const Util = require('../../lambda/util');
@@ -14,6 +15,7 @@ describe('Sequence 07. Test scenario: YesNoIntent', () => {
   const savePersistentAttributes = jest.fn();
   const mockOptionOneResponse = jest.fn();
   const mockOptionTwoResponse = jest.fn();
+  const mockOptionThreeResponse = jest.fn();
   const mockBusLineResponse = jest.fn();
   const mockGetNumberRand = jest.fn();
   const mockConsoleError = jest.fn();
@@ -21,6 +23,7 @@ describe('Sequence 07. Test scenario: YesNoIntent', () => {
   console.error = mockConsoleError;
   OptionOne.getResponse = mockOptionOneResponse;
   OptionTwo.getResponse = mockOptionTwoResponse;
+  OptionThree.getResponse = mockOptionThreeResponse;
   BusLines.getResponse = mockBusLineResponse;
   Util.getNumberRand = mockGetNumberRand;
 
@@ -174,6 +177,29 @@ describe('Sequence 07. Test scenario: YesNoIntent', () => {
     expect(mockConsoleError).not.toHaveBeenCalled();
   });
 
+  it('should be able can return response of the option three not bus stop', async () => {
+    getSessionAttributes.mockReturnValueOnce({
+      lastIntent: 'AMAZON.HelpIntent',
+      optionNumber: '3',
+    });
+
+    const optionThreeResponse =
+      speaks.NOT_BUSSTOP.format('2 minutos') + +speaks.CHOOSE_NEXTSTOPS;
+
+    const mockGetResponse = testResponseBuilder
+      .speak(optionThreeResponse)
+      .withStandardCard(speaks.SKILL_NAME, optionThreeResponse)
+      .reprompt(speaks.REPEAT_AGAIN)
+      .getResponse();
+
+    mockOptionThreeResponse.mockReturnValueOnce(mockGetResponse);
+
+    const response = await YesNoIntentHandler.handle(handlerInput);
+
+    expect(response).toEqual(mockGetResponse);
+    expect(mockConsoleError).not.toHaveBeenCalled();
+  });
+
   it('should be able can return response repeating of the option one', async () => {
     getSessionAttributes.mockReturnValueOnce({
       // O conteúdo da fala aqui foi desconsiderado.
@@ -224,16 +250,64 @@ describe('Sequence 07. Test scenario: YesNoIntent', () => {
     expect(mockConsoleError).not.toHaveBeenCalled();
   });
 
-  it('should be able can return asks what is the bus line', async () => {
+  it('should be able can return response of the option one coming from option three', async () => {
+    getSessionAttributes.mockReturnValueOnce({
+      optionNumber: '1',
+    });
+
+    // O conteúdo da fala aqui foi desconsiderado.
+    // Apenas verifica se está selecionando a opção 1.
+    const mockGetResponse = testResponseBuilder
+      .speak(speaks.OPTION1_BUSSTOP)
+      .withStandardCard(speaks.SKILL_NAME, speaks.OPTION1_BUSSTOP)
+      .reprompt(speaks.REPEAT_AGAIN)
+      .getResponse();
+
+    mockOptionOneResponse.mockReturnValueOnce(mockGetResponse);
+
+    const response = await YesNoIntentHandler.handle(handlerInput);
+
+    expect(response).toEqual(mockGetResponse);
+    expect(mockConsoleError).not.toHaveBeenCalled();
+  });
+
+  it('should be able can return response with bus lines serving the stop coming from option three', async () => {
     getSessionAttributes.mockReturnValueOnce({
       optionNumber: '2',
       especificBusLine: true,
     });
 
+    const optionTwoResponse = speaks.OPTION2_BUSLINENUMBERS.format(
+      '15 09 e 94 14',
+    );
+    const optionTwoResponseCard = speaks.OPTION2_BUSLINENUMBERS.format(
+      '1509 e 9414',
+    );
+
+    const mockGetResponse = testResponseBuilder
+      .speak(optionTwoResponse)
+      .withStandardCard(speaks.SKILL_NAME, optionTwoResponseCard)
+      .reprompt(speaks.REPEAT_AGAIN)
+      .getResponse();
+
+    mockBusLineResponse.mockReturnValueOnce(mockGetResponse);
+
+    const response = await YesNoIntentHandler.handle(handlerInput);
+
+    expect(response).toEqual(mockGetResponse);
+    expect(mockConsoleError).not.toHaveBeenCalled();
+  });
+
+  it('should be able can return asks what is the bus line', async () => {
+    getSessionAttributes.mockReturnValueOnce({
+      optionNumber: '2',
+      busLines: ['1145', '1505', '1509', '30'],
+    });
+
     const outputSpeech = testResponseBuilder
-      .speak(speaks.OPTION2_WHATBUSLINE)
-      .withStandardCard(speaks.SKILL_NAME, speaks.OPTION2_WHATBUSLINE)
-      .reprompt(speaks.OPTION2_WHATBUSLINE)
+      .speak(speaks.WHAT_BUSLINE)
+      .withStandardCard(speaks.SKILL_NAME, speaks.WHAT_BUSLINE)
+      .reprompt(speaks.WHAT_BUSLINE)
       .getResponse();
 
     const response = await YesNoIntentHandler.handle(handlerInput);
