@@ -81,11 +81,15 @@ const OptionOne = {
         let speakOutput = formatSpeak(freshness, busStops, dmElements);
         speakOutput += speaks.OPTION1_CAUTION;
 
-        // Dados de sessão para repetir a opção 1 caso o passageiro fale
-        // "sim" ou "repetir".
         const { attributesManager } = handlerInput;
         const sessionAttributes =
           attributesManager.getSessionAttributes() || {};
+        // Limpar response cache.
+        sessionAttributes.OptionTwoResponseCache = undefined;
+        sessionAttributes.BusLinesResponseCache = undefined;
+        sessionAttributes.BusLinesResponseCardCache = undefined;
+        // Dados de sessão para repetir a opção 1 caso o passageiro fale
+        // "sim" ou "repetir".
         sessionAttributes.OptionOneResponseCache = speakOutput;
         attributesManager.setSessionAttributes(sessionAttributes);
 

@@ -48,6 +48,14 @@ const OptionTwo = {
               ),
             ) + speaks.CHOOSE_OPTION1;
 
+          // Dados de sessão para pular para opção 1 caso o passageiro
+          // responda "sim".
+          const { attributesManager } = handlerInput;
+          const sessionAttributes =
+            attributesManager.getSessionAttributes() || {};
+          sessionAttributes.optionNumber = '1';
+          attributesManager.setSessionAttributes(sessionAttributes);
+
           return handlerInput.responseBuilder
             .speak(speakOutput)
             .withStandardCard(speaks.SKILL_NAME, speakOutput)
@@ -64,12 +72,16 @@ const OptionTwo = {
           busStops[0].desc,
         );
 
-        // Dados de sessão para continuar seguindo o fluxo da opção 2
-        // caso o passageiro responda "sim" ou caso ele
-        // peça para "repetir".
         const { attributesManager } = handlerInput;
         const sessionAttributes =
           attributesManager.getSessionAttributes() || {};
+        // Limpar response cache.
+        sessionAttributes.OptionOneResponseCache = undefined;
+        sessionAttributes.BusLinesResponseCache = undefined;
+        sessionAttributes.BusLinesResponseCardCache = undefined;
+        // Dados de sessão para continuar seguindo o fluxo da opção 2
+        // caso o passageiro responda "sim" ou caso ele
+        // peça para "repetir".
         sessionAttributes.optionNumber = '2';
         sessionAttributes.codBusStop = busStops[0].cod;
         sessionAttributes.OptionTwoResponseCache = speakOutput;

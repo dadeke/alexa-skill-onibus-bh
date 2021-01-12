@@ -68,10 +68,15 @@ const OptionThree = {
         );
         busLines = busLines.linhas.map(item => item.num_linha);
 
-        // Dados de sessão para continuar seguindo o fluxo da opção 3.
         const { attributesManager } = handlerInput;
         const sessionAttributes =
           attributesManager.getSessionAttributes() || {};
+        // Limpar response cache.
+        sessionAttributes.OptionOneResponseCache = undefined;
+        sessionAttributes.OptionTwoResponseCache = undefined;
+        sessionAttributes.BusLinesResponseCache = undefined;
+        sessionAttributes.BusLinesResponseCardCache = undefined;
+        // Dados de sessão para continuar seguindo o fluxo da opção 3.
         sessionAttributes.optionNumber = '3';
         sessionAttributes.codBusStop = busStops[0].cod;
         sessionAttributes.especificBusLine = true;
