@@ -21,8 +21,13 @@ const speaks = {
   GOOD_MORNING: 'bom dia',
   GOOD_AFTERNOON: 'boa tarde',
   GOOD_EVENING: 'boa noite', // Em Português do Brasil
-  WELCOME: 'Seja bem vindo ao Ônibus BH! ',
-  WELCOME_BACK: 'Bem vindo de volta! ',
+  WELCOME: 'Seja bem-vindo ao Ônibus BH! ',
+  WELCOME_BACK: [
+    'Bem-vindo de volta! ',
+    'É bom vê-lo novamente! ',
+    'Que bom revê-lo! ',
+    'Será um prazer ajudá-lo! ',
+  ],
   OPTIONS:
     'Por favor, escolha uma das opções ou peça ajuda: ' +
     'Opção 1) "Pontos mais próximos." ' +

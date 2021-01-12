@@ -1,6 +1,7 @@
 const Alexa = require('ask-sdk-core');
 
 const LaunchRequestHandler = require('../../lambda/handlers/LaunchRequestHandler.js');
+const Util = require('../../lambda/util');
 const speaks = require('../../lambda/speakStrings');
 
 const deviceId = 'amzn1.ask.device.XXXXXXXX';
@@ -38,8 +39,10 @@ describe('Sequence 01. Test scenario: launch request. no further interaction.', 
   const setPersistentAttributes = jest.fn();
   const savePersistentAttributes = jest.fn();
   const getSystemTimeZone = jest.fn();
+  const mockGetNumberRand = jest.fn();
   // eslint-disable-next-line no-console
   console.error = mockConsoleError;
+  Util.getNumberRand = mockGetNumberRand;
 
   const handlerInput = {
     attributesManager: {
@@ -240,8 +243,9 @@ describe('Sequence 01. Test scenario: launch request. no further interaction.', 
       },
     });
     getSystemTimeZone.mockReturnValueOnce(deviceTimeZone);
+    mockGetNumberRand.mockReturnValueOnce(1);
 
-    const speakOutput = testGreetingNow() + speaks.WELCOME_BACK;
+    const speakOutput = testGreetingNow() + speaks.WELCOME_BACK[1];
 
     const outputSpeech = testResponseBuilder
       .speak(speakOutput + speaks.OPTIONS)
@@ -264,12 +268,15 @@ describe('Sequence 01. Test scenario: launch request. no further interaction.', 
       },
     });
     getSystemTimeZone.mockReturnValueOnce(deviceTimeZone);
+    mockGetNumberRand.mockReturnValueOnce(1);
 
     const outputSpeech = testResponseBuilder
-      .speak(testGreetingNow(personId) + speaks.WELCOME_BACK + speaks.OPTIONS)
+      .speak(
+        testGreetingNow(personId) + speaks.WELCOME_BACK[1] + speaks.OPTIONS,
+      )
       .withStandardCard(
         speaks.SKILL_NAME,
-        testGreetingNow() + speaks.WELCOME_BACK + speaks.OPTIONS_CARD,
+        testGreetingNow() + speaks.WELCOME_BACK[1] + speaks.OPTIONS_CARD,
       )
       .reprompt(speaks.OPTIONS)
       .getResponse();

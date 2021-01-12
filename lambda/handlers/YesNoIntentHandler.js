@@ -142,7 +142,7 @@ const YesNoIntentHandler = {
 
     await Util.setLastAccess(handlerInput);
 
-    const number = Util.getNumberRand(2);
+    const number = Util.getNumberRand(speaks.ALL_RIGHT_BYE.length - 1);
 
     return handlerInput.responseBuilder
       .speak(speaks.ALL_RIGHT_BYE[number])

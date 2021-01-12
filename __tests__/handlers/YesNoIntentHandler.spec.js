@@ -93,11 +93,11 @@ describe('Sequence 07. Test scenario: YesNoIntent', () => {
   it('should be able can return response all right when intent name is AMAZON.NoIntent', async () => {
     handlerInput.requestEnvelope.request.intent.name = 'AMAZON.NoIntent';
 
-    mockGetNumberRand.mockReturnValueOnce(2);
+    mockGetNumberRand.mockReturnValueOnce(1);
 
     const outputSpeech = testResponseBuilder
-      .speak(speaks.ALL_RIGHT_BYE[2])
-      .withStandardCard(speaks.SKILL_NAME, speaks.ALL_RIGHT_BYE[2])
+      .speak(speaks.ALL_RIGHT_BYE[1])
+      .withStandardCard(speaks.SKILL_NAME, speaks.ALL_RIGHT_BYE[1])
       .withShouldEndSession(true)
       .getResponse();
 

@@ -1,6 +1,7 @@
 const Alexa = require('ask-sdk-core');
+
+const Util = require('../util');
 const speaks = require('../speakStrings');
-const { setLastAccess } = require('../util');
 
 const LaunchRequestHandler = {
   canHandle(handlerInput) {
@@ -26,7 +27,7 @@ const LaunchRequestHandler = {
         // eslint-disable-next-line no-console
         console.error('Error:', `LaunchRequestHandler - ${error.message}`);
 
-        await setLastAccess(handlerInput);
+        await Util.setLastAccess(handlerInput);
 
         return handlerInput.responseBuilder
           .speak(speaks.PROBLEM)
@@ -65,7 +66,12 @@ const LaunchRequestHandler = {
       speakOutput = speakCard;
     }
 
-    const welcome = lastAccess === false ? speaks.WELCOME : speaks.WELCOME_BACK;
+    let welcome = speaks.WELCOME;
+    if (lastAccess !== false) {
+      const number = Util.getNumberRand(speaks.WELCOME_BACK.length - 1);
+      welcome = speaks.WELCOME_BACK[number];
+    }
+
     speakOutput += welcome;
     speakOutput += speaks.OPTIONS;
     speakCard += welcome;
