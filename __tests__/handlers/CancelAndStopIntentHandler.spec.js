@@ -4,7 +4,7 @@ const CancelAndStopIntentHandler = require('../../lambda/handlers/CancelAndStopI
 const speaks = require('../../lambda/speakStrings');
 const Util = require('../../lambda/util');
 
-describe('Sequence 09. Test scenario: AMAZON.CancelIntent and AMAZON.StopIntent', () => {
+describe('Sequence 10. Test scenario: AMAZON.CancelIntent and AMAZON.StopIntent', () => {
   const mockConsoleError = jest.fn();
   const getSessionAttributes = jest.fn();
   const setPersistentAttributes = jest.fn();

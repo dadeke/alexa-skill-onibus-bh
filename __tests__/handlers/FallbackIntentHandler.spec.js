@@ -3,7 +3,7 @@ const Alexa = require('ask-sdk-core');
 const FallbackIntentHandler = require('../../lambda/handlers/FallbackIntentHandler');
 const speaks = require('../../lambda/speakStrings');
 
-describe('Sequence 10. Test scenario: FallbackIntent', () => {
+describe('Sequence 11. Test scenario: FallbackIntent', () => {
   const handlerInput = {
     requestEnvelope: {
       request: {
