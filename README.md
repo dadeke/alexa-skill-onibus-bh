@@ -52,6 +52,10 @@ https://prefeitura.pbh.gov.br/bhtrans/informacoes/dados/dados-abertos
 
 ## Changelog ##
 
+### 0.1.1 - 04/01/2021 ###
+- Adicionados ajustes na opção dois.
+- Adicionado redefinição do cache de resposta em alguns pontos específicos.
+
 ### 0.1.0 - 31/12/2020 ###
 - Adicionado a opção três: "Previsão de parada"
 - Adicionados textos de fala aleatórios ao dar boas vindas.
