@@ -3,6 +3,10 @@
 
 [![Build Status](https://travis-ci.com/dadeke/alexa-skill-onibus-bh.svg?branch=main)](https://travis-ci.com/github/dadeke/alexa-skill-onibus-bh)
 [![Coverage Status](https://codecov.io/gh/dadeke/alexa-skill-onibus-bh/branch/main/graph/badge.svg)](https://codecov.io/gh/dadeke/alexa-skill-onibus-bh)
+[![ESLint](https://img.shields.io/badge/eslint-6.8.0-4b32c3?style=flat-square&logo=eslint)](https://eslint.org/)
+[![Airbnb Style](https://flat.badgen.net/badge/style-guide/airbnb/ff5a5f?icon=airbnb)](https://github.com/airbnb/javascript)
+[![Jest](https://img.shields.io/badge/jest-26.6.3-brightgreen?style=flat-square&logo=jest)](https://jestjs.io/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![Stargazers](https://img.shields.io/github/stars/dadeke/alexa-skill-onibus-bh?style=social)](https://github.com/dadeke/alexa-skill-onibus-bh/stargazers)
 
 Repositório do código fonte da skill da Alexa: [Ônibus BH](https://www.amazon.com.br/DD-Tecnologia-%C3%94nibus-BH/dp/B08QVDBMTF/).
