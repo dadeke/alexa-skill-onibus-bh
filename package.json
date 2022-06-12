@@ -15,7 +15,7 @@
     "ask-sdk-dynamodb-persistence-adapter": "^2.10.0",
     "ask-sdk-model": "^1.19.0",
     "aws-sdk": "^2.814.0",
-    "axios": "^0.21.1"
+    "axios": "^0.21.2"
   },
   "devDependencies": {
     "ask-sdk-local-debug": "^1.1.0",
